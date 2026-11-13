@@ -1,0 +1,18 @@
+variable,group,total_exp,total_exp_se,oop_exp,oop_exp_se
+age_grp,18-34,7240.74,412.56,794.57,68.87
+age_grp,35-49,7494.55,386.05,1130.76,126.41
+age_grp,50-64,7675.62,306.55,1112.1,54.73
+age_grp,65+,8525.9,379.82,1323.54,80.41
+race,Hispanic,5821.52,500.59,597.09,36.07
+race,NH Asian,6899.57,566.84,966.07,125.82
+race,NH Black,6456.51,378.85,676.55,94.57
+race,NH Other/Multi,7912.6,979.61,891.59,119.15
+race,NH White,8556.8,232.82,1308.96,64.86
+pov_cat,High income,8811.82,279.28,1423.95,87.79
+pov_cat,Low income,6692.38,413.42,725.08,77.26
+pov_cat,Middle income,6827.49,263.35,958.27,52.75
+pov_cat,Near poor,9289.61,2264.26,766.3,260.03
+pov_cat,Poor (<100% FPL),5889.68,430.07,356.38,51.49
+insurance,Any private,8346.19,223.79,1296.15,60.06
+insurance,Public only,7142.88,495.34,546.21,57.32
+insurance,Uninsured,3798.43,284.78,850.75,106.75

@@ -1,0 +1,25 @@
+level,race,mean,se,outcome,by_,by
+200–399% FPL,Hispanic,517.919,36.757,oop_exp,inc_grp,inc_grp
+200–399% FPL,NH Asian,730.535,128.056,oop_exp,inc_grp,inc_grp
+200–399% FPL,NH Black,647.295,89.344,oop_exp,inc_grp,inc_grp
+200–399% FPL,NH White,1223.686,88.015,oop_exp,inc_grp,inc_grp
+<200% FPL,Hispanic,573.235,58.383,oop_exp,inc_grp,inc_grp
+<200% FPL,NH Asian,333.083,95.176,oop_exp,inc_grp,inc_grp
+<200% FPL,NH Black,340.617,31.749,oop_exp,inc_grp,inc_grp
+<200% FPL,NH White,901.974,101.312,oop_exp,inc_grp,inc_grp
+≥400% FPL,Hispanic,818.836,68.349,oop_exp,inc_grp,inc_grp
+≥400% FPL,NH Asian,1272.356,205.822,oop_exp,inc_grp,inc_grp
+≥400% FPL,NH Black,1100.741,277.935,oop_exp,inc_grp,inc_grp
+≥400% FPL,NH White,1497.408,105.145,oop_exp,inc_grp,inc_grp
+200–399% FPL,Hispanic,3.316,0.585,hb100,inc_grp,inc_grp
+200–399% FPL,NH Asian,4.881,2.009,hb100,inc_grp,inc_grp
+200–399% FPL,NH Black,3.548,0.965,hb100,inc_grp,inc_grp
+200–399% FPL,NH White,8.064,0.834,hb100,inc_grp,inc_grp
+<200% FPL,Hispanic,12.323,1.235,hb100,inc_grp,inc_grp
+<200% FPL,NH Asian,19.194,4.638,hb100,inc_grp,inc_grp
+<200% FPL,NH Black,11.788,1.045,hb100,inc_grp,inc_grp
+<200% FPL,NH White,24.679,1.36,hb100,inc_grp,inc_grp
+≥400% FPL,Hispanic,2.249,0.687,hb100,inc_grp,inc_grp
+≥400% FPL,NH Asian,4.084,1.121,hb100,inc_grp,inc_grp
+≥400% FPL,NH Black,2.563,1.115,hb100,inc_grp,inc_grp
+≥400% FPL,NH White,2.474,0.398,hb100,inc_grp,inc_grp

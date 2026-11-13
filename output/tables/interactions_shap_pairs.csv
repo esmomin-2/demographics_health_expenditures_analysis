@@ -1,0 +1,26 @@
+a,b,mean_abs_interaction
+educ_yrs,n_chronic,0.0828
+n_chronic,race_NH White,0.0752
+health_poor,mental_poor,0.0633
+female,n_chronic,0.0622
+age,female,0.0607
+fam_size,married,0.0604
+educ_yrs,fam_size,0.0462
+fam_size,has_usual_source,0.0413
+age,mental_poor,0.0412
+n_chronic,insurance_Uninsured,0.0389
+fam_size,race_NH White,0.0387
+female,fam_size,0.0366
+has_usual_source,n_chronic,0.0364
+has_usual_source,diabetes,0.0363
+age,n_chronic,0.0357
+age,health_poor,0.0354
+n_chronic,pov_cat_High income,0.0326
+age,has_usual_source,0.0287
+has_usual_source,hypertension,0.0252
+female,pov_cat_High income,0.0245
+age,educ_yrs,0.0242
+mental_poor,has_usual_source,0.0226
+health_poor,race_NH White,0.0226
+female,health_poor,0.0224
+age,fam_size,0.022

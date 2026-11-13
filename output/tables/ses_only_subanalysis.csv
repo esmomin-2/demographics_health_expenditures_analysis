@@ -1,0 +1,25 @@
+features,outcome,model,metric,value
+Demographics + SES,log_total_exp,OLS,R2,0.2155
+Demographics + SES,log_total_exp,KNN,R2,0.2027
+Demographics + SES,log_total_exp,XGBoost,R2,0.2389
+Demographics + SES,log_oop_exp,OLS,R2,0.2233
+Demographics + SES,log_oop_exp,KNN,R2,0.2001
+Demographics + SES,log_oop_exp,XGBoost,R2,0.2332
+Demographics + SES,high_cost,Logit,AUC,0.7014
+Demographics + SES,high_cost,XGBoost,AUC,0.6944
++ Access to care,log_total_exp,OLS,R2,0.315
++ Access to care,log_total_exp,KNN,R2,0.2876
++ Access to care,log_total_exp,XGBoost,R2,0.3263
++ Access to care,log_oop_exp,OLS,R2,0.2829
++ Access to care,log_oop_exp,KNN,R2,0.2534
++ Access to care,log_oop_exp,XGBoost,R2,0.2948
++ Access to care,high_cost,Logit,AUC,0.7193
++ Access to care,high_cost,XGBoost,AUC,0.7186
++ Health conditions (full),log_total_exp,OLS,R2,0.3718
++ Health conditions (full),log_total_exp,KNN,R2,0.349
++ Health conditions (full),log_total_exp,XGBoost,R2,0.3906
++ Health conditions (full),log_oop_exp,OLS,R2,0.312
++ Health conditions (full),log_oop_exp,KNN,R2,0.2935
++ Health conditions (full),log_oop_exp,XGBoost,R2,0.321
++ Health conditions (full),high_cost,Logit,AUC,0.793
++ Health conditions (full),high_cost,XGBoost,AUC,0.7897

@@ -1,0 +1,11 @@
+feature,mean_abs_shap,flagged,not_flagged
+Race/ethnicity,0.02089,0.01974,-0.00233
+Employed,0.0184,0.02076,-0.00523
+Age,0.01621,0.01837,-0.00273
+Income (% FPL),0.01535,0.02131,0.00084
+Region,0.00721,0.00506,0.00118
+Family size,0.00686,0.00807,0.00118
+Female,0.0063,0.00316,-0.00044
+Married,0.00464,0.00396,0.00015
+Education (years),0.00173,0.00032,-0.00018
+Family income,0.00153,0.00148,9e-05

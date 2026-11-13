@@ -1,0 +1,49 @@
+by,race,level,outcome,mean,se,n
+inc_grp,NH White,<200% FPL,oop_exp,1051.868,108.119,2480
+inc_grp,NH White,<200% FPL,hb100,25.737,1.356,2480
+inc_grp,NH White,200–399% FPL,oop_exp,1283.943,86.587,2683
+inc_grp,NH White,200–399% FPL,hb100,8.528,0.798,2683
+inc_grp,NH White,≥400% FPL,oop_exp,1536.32,103.154,4812
+inc_grp,NH White,≥400% FPL,hb100,2.74,0.4,4812
+inc_grp,NH Black,<200% FPL,oop_exp,338.632,31.079,1248
+inc_grp,NH Black,<200% FPL,hb100,11.439,1.034,1248
+inc_grp,NH Black,200–399% FPL,oop_exp,639.991,89.811,701
+inc_grp,NH Black,200–399% FPL,hb100,3.389,0.953,701
+inc_grp,NH Black,≥400% FPL,oop_exp,1083.859,278.723,538
+inc_grp,NH Black,≥400% FPL,hb100,2.335,1.106,538
+inc_grp,Hispanic,<200% FPL,oop_exp,391.542,52.017,1633
+inc_grp,Hispanic,<200% FPL,hb100,10.752,1.172,1633
+inc_grp,Hispanic,200–399% FPL,oop_exp,351.388,34.133,1046
+inc_grp,Hispanic,200–399% FPL,hb100,1.994,0.559,1046
+inc_grp,Hispanic,≥400% FPL,oop_exp,725.545,67.237,765
+inc_grp,Hispanic,≥400% FPL,hb100,1.356,0.641,765
+inc_grp,NH Asian,<200% FPL,oop_exp,301.314,96.271,157
+inc_grp,NH Asian,<200% FPL,hb100,19.871,5.227,157
+inc_grp,NH Asian,200–399% FPL,oop_exp,614.457,141.022,247
+inc_grp,NH Asian,200–399% FPL,hb100,4.148,2.173,247
+inc_grp,NH Asian,≥400% FPL,oop_exp,1149.159,205.456,576
+inc_grp,NH Asian,≥400% FPL,hb100,3.222,1.128,576
+insurance,NH White,Public only,oop_exp,1245.196,100.902,2953
+insurance,NH White,Public only,hb100,14.821,0.875,2953
+insurance,NH White,Any private,oop_exp,1427.312,77.235,6653
+insurance,NH White,Any private,hb100,7.195,0.543,6653
+insurance,NH White,Uninsured,oop_exp,1047.513,269.513,369
+insurance,NH White,Uninsured,hb100,9.144,2.201,369
+insurance,NH Black,Public only,oop_exp,531.168,108.597,1059
+insurance,NH Black,Public only,hb100,8.629,0.916,1059
+insurance,NH Black,Any private,oop_exp,802.058,133.331,1267
+insurance,NH Black,Any private,hb100,4.241,0.82,1267
+insurance,NH Black,Uninsured,oop_exp,225.136,46.408,161
+insurance,NH Black,Uninsured,hb100,6.195,2.025,161
+insurance,Hispanic,Public only,oop_exp,329.308,38.783,1213
+insurance,Hispanic,Public only,hb100,7.14,0.933,1213
+insurance,Hispanic,Any private,oop_exp,662.026,56.045,1497
+insurance,Hispanic,Any private,hb100,4.663,0.776,1497
+insurance,Hispanic,Uninsured,oop_exp,191.961,25.008,734
+insurance,Hispanic,Uninsured,hb100,2.802,0.689,734
+insurance,NH Asian,Public only,oop_exp,370.074,77.516,203
+insurance,NH Asian,Public only,hb100,8.093,3.239,203
+insurance,NH Asian,Any private,oop_exp,1040.606,164.567,739
+insurance,NH Asian,Any private,hb100,6.107,1.326,739
+insurance,NH Asian,Uninsured,oop_exp,400.496,243.78,38
+insurance,NH Asian,Uninsured,hb100,9.526,6.525,38

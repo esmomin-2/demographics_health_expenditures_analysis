@@ -1,0 +1,9 @@
+outcome,moderator,chi2,df,p
+log_total_exp,Family income,8.5058,6,0.2033
+log_total_exp,Insurance,7.3331,6,0.2911
+log_total_exp,Age group,35.0952,9,0.0001
+log_total_exp,Sex,9.4733,3,0.0236
+log_oop_exp,Family income,12.75,6,0.0472
+log_oop_exp,Insurance,6.5778,6,0.3617
+log_oop_exp,Age group,6.0094,9,0.739
+log_oop_exp,Sex,8.0193,3,0.0456

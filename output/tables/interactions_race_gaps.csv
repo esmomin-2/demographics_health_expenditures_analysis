@@ -1,0 +1,73 @@
+outcome,moderator,level,race,coef,se,pct,lo,hi
+log_total_exp,Family income,<200% FPL,NH Black,-0.8497,0.1575,-57.2449,-68.5997,-41.7842
+log_total_exp,Family income,<200% FPL,Hispanic,-0.8221,0.1728,-56.0495,-68.677,-38.3316
+log_total_exp,Family income,<200% FPL,NH Asian,-0.7085,0.2624,-50.7616,-70.5609,-17.6461
+log_total_exp,Family income,200–399% FPL,NH Black,-0.9349,0.1787,-60.7388,-72.3428,-44.2663
+log_total_exp,Family income,200–399% FPL,Hispanic,-0.9888,0.1503,-62.798,-72.2928,-50.0496
+log_total_exp,Family income,200–399% FPL,NH Asian,-0.4698,0.2541,-37.4881,-62.0108,2.8646
+log_total_exp,Family income,≥400% FPL,NH Black,-0.5101,0.1874,-39.9546,-58.4088,-13.3122
+log_total_exp,Family income,≥400% FPL,Hispanic,-0.5291,0.1575,-41.0849,-56.7288,-19.7852
+log_total_exp,Family income,≥400% FPL,NH Asian,-0.2455,0.1472,-21.7672,-41.3733,4.3957
+log_total_exp,Insurance,Any private,NH Black,-0.7688,0.1203,-53.6452,-63.3843,-41.3158
+log_total_exp,Insurance,Any private,Hispanic,-0.8734,0.1222,-58.2464,-67.1393,-46.9469
+log_total_exp,Insurance,Any private,NH Asian,-0.29,0.1452,-25.1708,-43.7057,-0.5333
+log_total_exp,Insurance,Public only,NH Black,-0.6594,0.1737,-48.2818,-63.2043,-27.3076
+log_total_exp,Insurance,Public only,Hispanic,-0.5734,0.1738,-43.6373,-59.9067,-20.766
+log_total_exp,Insurance,Public only,NH Asian,-0.7214,0.2097,-51.3937,-67.7735,-26.6885
+log_total_exp,Insurance,Uninsured,NH Black,-0.9597,0.3856,-61.7004,-82.0121,-18.4527
+log_total_exp,Insurance,Uninsured,Hispanic,-0.671,0.2743,-48.8816,-70.1407,-12.4863
+log_total_exp,Insurance,Uninsured,NH Asian,-0.403,0.635,-33.1715,-80.7496,131.998
+log_total_exp,Age group,18-34,NH Black,-1.0808,0.1803,-66.0664,-76.1663,-51.6866
+log_total_exp,Age group,18-34,Hispanic,-1.019,0.1631,-63.904,-73.7802,-50.3077
+log_total_exp,Age group,18-34,NH Asian,-0.2945,0.2468,-25.5069,-54.075,20.8324
+log_total_exp,Age group,35-49,NH Black,-0.7474,0.1862,-52.6389,-67.1203,-31.7796
+log_total_exp,Age group,35-49,Hispanic,-0.8734,0.1682,-58.2479,-69.9731,-41.9442
+log_total_exp,Age group,35-49,NH Asian,-0.4318,0.1972,-35.065,-55.8854,-4.4182
+log_total_exp,Age group,50-64,NH Black,-0.638,0.1695,-47.1658,-62.0989,-26.3491
+log_total_exp,Age group,50-64,Hispanic,-0.6279,0.1353,-46.6277,-59.0634,-30.4143
+log_total_exp,Age group,50-64,NH Asian,-0.5226,0.1636,-40.7018,-56.9661,-18.2906
+log_total_exp,Age group,65+,NH Black,-0.3855,0.1293,-31.9863,-47.214,-12.3657
+log_total_exp,Age group,65+,Hispanic,-0.141,0.126,-13.1501,-32.1564,11.1807
+log_total_exp,Age group,65+,NH Asian,-0.3908,0.2571,-32.346,-59.1291,11.9884
+log_total_exp,Sex,Female,NH Black,-0.7324,0.1258,-51.9231,-62.4257,-38.485
+log_total_exp,Sex,Female,Hispanic,-0.593,0.1164,-44.7352,-56.0067,-30.576
+log_total_exp,Sex,Female,NH Asian,-0.5442,0.1475,-41.9701,-56.5404,-22.515
+log_total_exp,Sex,Male,NH Black,-0.7699,0.1332,-53.6942,-64.3332,-39.8818
+log_total_exp,Sex,Male,Hispanic,-0.9321,0.1249,-60.6273,-69.1745,-49.7101
+log_total_exp,Sex,Male,NH Asian,-0.2046,0.1595,-18.4987,-40.3825,11.418
+log_oop_exp,Family income,<200% FPL,NH Black,-1.0471,0.1269,-64.9054,-72.6348,-54.9929
+log_oop_exp,Family income,<200% FPL,Hispanic,-0.8094,0.128,-55.4867,-65.3611,-42.7974
+log_oop_exp,Family income,<200% FPL,NH Asian,-1.3582,0.2555,-74.2887,-84.4181,-57.5745
+log_oop_exp,Family income,200–399% FPL,NH Black,-1.1223,0.1534,-67.4463,-75.8979,-56.0311
+log_oop_exp,Family income,200–399% FPL,Hispanic,-1.0172,0.1366,-63.8404,-72.3313,-52.7437
+log_oop_exp,Family income,200–399% FPL,NH Asian,-0.7172,0.2877,-51.1903,-72.2252,-14.2249
+log_oop_exp,Family income,≥400% FPL,NH Black,-0.8742,0.1553,-58.2813,-69.2321,-43.433
+log_oop_exp,Family income,≥400% FPL,Hispanic,-0.6385,0.1472,-47.1934,-60.4286,-29.5315
+log_oop_exp,Family income,≥400% FPL,NH Asian,-0.4552,0.1607,-36.5672,-53.7101,-13.0756
+log_oop_exp,Insurance,Any private,NH Black,-1.0028,0.1029,-63.3151,-70.0172,-55.1149
+log_oop_exp,Insurance,Any private,Hispanic,-0.8496,0.107,-57.2411,-65.333,-47.2604
+log_oop_exp,Insurance,Any private,NH Asian,-0.5518,0.1547,-42.4091,-57.4703,-22.0142
+log_oop_exp,Insurance,Public only,NH Black,-1.0425,0.1403,-64.7437,-73.2183,-53.5876
+log_oop_exp,Insurance,Public only,Hispanic,-0.7697,0.1381,-53.6844,-64.6692,-39.2844
+log_oop_exp,Insurance,Public only,NH Asian,-1.2163,0.2424,-70.3664,-81.5745,-52.3405
+log_oop_exp,Insurance,Uninsured,NH Black,-0.7342,0.343,-52.0124,-75.502,-6.0
+log_oop_exp,Insurance,Uninsured,Hispanic,-0.6649,0.2378,-48.5681,-67.7321,-18.0226
+log_oop_exp,Insurance,Uninsured,NH Asian,-0.3561,0.5952,-29.9586,-78.1858,124.8901
+log_oop_exp,Age group,18-34,NH Black,-1.1122,0.1425,-67.1155,-75.1266,-56.5243
+log_oop_exp,Age group,18-34,Hispanic,-0.8377,0.141,-56.7317,-67.18,-42.9571
+log_oop_exp,Age group,18-34,NH Asian,-0.5762,0.27,-43.7969,-66.8926,-4.5897
+log_oop_exp,Age group,35-49,NH Black,-1.0045,0.1665,-63.377,-73.5747,-49.2439
+log_oop_exp,Age group,35-49,Hispanic,-0.7967,0.1428,-54.9197,-65.9268,-40.3568
+log_oop_exp,Age group,35-49,NH Asian,-0.4509,0.2358,-36.2936,-59.8739,1.1439
+log_oop_exp,Age group,50-64,NH Black,-0.8872,0.1452,-58.8177,-69.0206,-45.2545
+log_oop_exp,Age group,50-64,Hispanic,-0.7872,0.1198,-54.488,-64.0146,-42.4394
+log_oop_exp,Age group,50-64,NH Asian,-0.8737,0.2101,-58.2606,-72.3492,-36.9937
+log_oop_exp,Age group,65+,NH Black,-0.9263,0.1628,-60.3993,-71.2156,-45.5186
+log_oop_exp,Age group,65+,Hispanic,-0.7763,0.1665,-53.9908,-66.7996,-36.2402
+log_oop_exp,Age group,65+,NH Asian,-1.0156,0.2492,-63.782,-77.7788,-40.9687
+log_oop_exp,Sex,Female,NH Black,-0.9432,0.1092,-61.0625,-68.5677,-51.7653
+log_oop_exp,Sex,Female,Hispanic,-0.7943,0.1072,-54.8121,-63.3784,-44.242
+log_oop_exp,Sex,Female,NH Asian,-0.9445,0.1822,-61.1123,-72.7905,-44.4218
+log_oop_exp,Sex,Male,NH Black,-1.0625,0.1183,-65.4423,-72.5964,-56.4206
+log_oop_exp,Sex,Male,Hispanic,-0.8161,0.1113,-55.7834,-64.4505,-45.0032
+log_oop_exp,Sex,Male,NH Asian,-0.3896,0.1522,-32.2699,-49.7424,-8.7231

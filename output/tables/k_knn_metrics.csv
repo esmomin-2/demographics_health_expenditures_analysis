@@ -1,0 +1,8 @@
+target,model,cv_MSE,test_MSE,test_RMSE,test_MAE,test_R2
+log_total_exp,"KNN (K=60, distance)",6.4029,6.5798,2.5651,1.9003,0.349
+log_total_exp,OLS,,6.3402,2.518,1.8664,0.3727
+log_total_exp,Null (training mean),,10.1283,3.1825,2.3753,-0.0021
+log_oop_exp,"KNN (K=60, distance)",5.8679,6.0144,2.4524,1.9777,0.2935
+log_oop_exp,OLS,,5.8505,2.4188,1.9507,0.3128
+log_oop_exp,Null (training mean),,8.5152,2.9181,2.4607,-0.0002
+"total_exp ($, smeared)","KNN (K=60, distance)",,408183103.3727,20203.5419,6585.0892,-0.0194
