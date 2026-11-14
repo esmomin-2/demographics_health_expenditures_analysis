@@ -52,6 +52,19 @@
 | 7 | **Demographics + SES (incl. access) get ~85% of the way** | Test R² **0.33** (demographics + SES incl. insurance & usual source of care) vs **0.39** (+ health status & clinical history), consistent across 9 learners |
 | 8 | **Flexible ML adds little over OLS** | 0.391 (GBM) vs 0.372 (OLS), matching Buntin & Zaslavsky (2004) and Rose (2016) |
 
+<br/>
+
+#### Population profiles (K-means on demographics + SES incl. access; health excluded from clustering)
+
+| # | Finding | Evidence |
+|:-:|---|---|
+| 9 | **High public-insurance spending is mostly illness** | Publicly insured, older & lower-income profile: **$10.4k** raw → **$7.1k** health-adjusted, falling below privately insured White adults |
+| 10 | **Same coverage, different spending** | Privately insured Black & Hispanic workers spend **$6.6k** vs **$9.1k** for privately insured White adults at equal health (**~27% less**) |
+| 11 | **Being uninsured is the biggest barrier** | Uninsured adults spend **$3.5k** health-adjusted, under half of any insured profile; only **46%** had any spending vs 79–92% elsewhere |
+| 12 | **Spending and strain diverge** | Publicly insured profile pays **6.4%** of family income out of pocket, twice the **3.2%** for privately insured White adults |
+
+<sub>Six profiles at K = 6 (best silhouette for K = 4–7, 0.14). K-means vs Gaussian mixture agreement ARI **0.95**; vs Ward 0.51; profiles differ in spending (joint Wald p < 10⁻²⁰⁰). The near-poor profile (3%, n = 771) is defined almost entirely by one income category and has a very wide CI, so it is not interpreted.</sub>
+
 > ⚠️ Cross-sectional data: every estimate is a **conditional association, not a causal effect**.
 
 ---
