@@ -1,0 +1,3 @@
+comparison,ARI
+K-means vs GMM (full sample),0.36174880957941574
+K-means vs Ward (5k subsample),0.4160490811000486

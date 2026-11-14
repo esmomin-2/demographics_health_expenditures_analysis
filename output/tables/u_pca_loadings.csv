@@ -1,34 +1,25 @@
 ,PC1,PC2,PC3
-age,0.311,0.19,-0.033
-female,0.057,-0.024,-0.008
-educ_yrs,-0.107,0.316,0.074
-fam_size,-0.178,-0.135,-0.052
-health_poor,0.234,-0.069,-0.005
-mental_poor,0.145,-0.087,-0.052
-married,-0.081,0.193,-0.022
-employed,-0.286,0.044,0.127
-has_usual_source,0.129,0.194,0.007
-diabetes,0.224,0.008,0.115
-hypertension,0.305,0.105,0.138
-heart_disease,0.19,0.051,0.027
-asthma,0.093,0.02,0.059
-arthritis,0.3,0.128,0.04
-cancer,0.175,0.162,-0.027
-n_chronic,0.401,0.15,0.115
-race: Hispanic,-0.06,-0.312,-0.109
-race: NH Asian,-0.077,0.018,-0.009
-race: NH Black,0.071,-0.142,0.445
-race: NH Other/Multi,0.002,-0.039,0.03
-race: NH White,0.033,0.357,-0.233
-pov_cat: High income,-0.151,0.336,0.02
-pov_cat: Low income,0.064,-0.115,-0.05
-pov_cat: Middle income,-0.028,-0.055,0.075
-pov_cat: Near poor,0.067,-0.082,-0.049
-pov_cat: Poor (<100% FPL),0.141,-0.232,-0.045
-insurance: Any private,-0.227,0.319,0.254
-insurance: Public only,0.281,-0.191,-0.264
-insurance: Uninsured,-0.074,-0.252,-0.004
-region: Midwest,0.002,0.101,-0.143
-region: Northeast,0.002,0.079,-0.133
-region: South,0.038,-0.146,0.565
-region: West,-0.046,0.004,-0.387
+age,-0.072,0.434,0.008
+female,-0.066,0.074,0.035
+educ_yrs,0.317,0.117,0.109
+fam_size,0.03,-0.325,-0.175
+married,0.222,-0.011,-0.124
+employed,0.255,-0.328,0.046
+has_usual_source,0.063,0.278,0.031
+race: Hispanic,-0.193,-0.339,-0.261
+race: NH Asian,0.075,-0.09,-0.093
+race: NH Black,-0.16,-0.05,0.467
+race: NH Other/Multi,-0.026,-0.051,0.002
+race: NH White,0.243,0.367,-0.078
+pov_cat: High income,0.374,0.053,-0.018
+pov_cat: Low income,-0.141,0.005,-0.027
+pov_cat: Middle income,-0.014,-0.111,0.049
+pov_cat: Near poor,-0.115,0.035,-0.035
+pov_cat: Poor (<100% FPL),-0.291,0.04,0.008
+insurance: Any private,0.439,-0.114,0.181
+insurance: Public only,-0.377,0.284,-0.154
+insurance: Uninsured,-0.145,-0.287,-0.061
+region: Midwest,0.077,0.118,-0.055
+region: Northeast,0.051,0.107,-0.079
+region: South,-0.139,-0.131,0.556
+region: West,0.042,-0.053,-0.504

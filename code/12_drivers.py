@@ -30,7 +30,7 @@ DOM = [("Demographics", style.NAVY, [("Age 35-49 vs 18-34", "35-49"), ("Age 50-6
        ("Socioeconomic status", style.TEAL, [("< High school vs HS", "<HS"), ("Some college vs HS", "Some college"), ("BA+ vs HS", "BA+"),
         ("Poor (<100% FPL) vs middle", "Poor (<100% FPL)"), ("Near poor vs middle", "Near poor"), ("Low income vs middle", "[T.Low income]"),
         ("High income vs middle", "High income"), ("Employed", "employed")]),
-       ("Access to care", style.GOLD, [("Public only vs private", "Public only"), ("Uninsured vs private", "Uninsured"), ("Has usual source of care", "has_usual_source")])]
+       ("SES: access to care", style.GOLD, [("Public only vs private", "Public only"), ("Uninsured vs private", "Uninsured"), ("Has usual source of care", "has_usual_source")])]
 fig, ax = plt.subplots(figsize=(10, 9)); yv, labs, pos, his = [], [], 0, []
 for dom, col, its in DOM:
     ax.text(-104, -pos + .75, dom.upper(), fontsize=9.5, fontweight="bold", color=col, va="center", ha="left")
@@ -46,23 +46,23 @@ fig.tight_layout(); style.save(fig, "drivers_demographics_ses", "Source: MEPS HC
 
 # ---------- Figure C: domain importance (LMG R² shares + SHAP)
 L = pd.read_csv("output/tables/s_lmg.csv")
-DMAP = {"health": "Health conditions", "insurance": "Access to care", "age": "Demographics", "family": "Demographics", "race": "Demographics",
-        "sex": "Demographics", "education": "Socioeconomic status", "income/poverty": "Socioeconomic status", "region": "Demographics"}
+DMAP = {"health": "Health conditions", "insurance": "Socioeconomic status (incl. access)", "age": "Demographics", "family": "Demographics", "race": "Demographics",
+        "sex": "Demographics", "education": "Socioeconomic status (incl. access)", "income/poverty": "Socioeconomic status (incl. access)", "region": "Demographics"}
 L["domain"] = L.block.map(DMAP); Ld = L.groupby("domain").lmg_r2.sum()
 S = pd.read_csv("output/tables/s_shap_mean_abs.csv"); S.columns = ["feature", "imp", "dir"]
 SM = {**{c: "Health conditions" for c in ["n_chronic", "health_poor", "mental_poor", "diabetes", "arthritis", "hypertension", "cancer", "asthma", "heart_disease"]},
       **{c: "Demographics" for c in ["fam_size", "race", "female", "age", "married", "region"]},
-      **{c: "Socioeconomic status" for c in ["educ_yrs", "pov_cat", "employed", "fam_income"]}, "insurance": "Access to care", "has_usual_source": "Access to care"}
+      **{c: "Socioeconomic status (incl. access)" for c in ["educ_yrs", "pov_cat", "employed", "fam_income"]}, "insurance": "Socioeconomic status (incl. access)", "has_usual_source": "Socioeconomic status (incl. access)"}
 S["domain"] = S.feature.map(SM); Sd = S.groupby("domain").imp.sum()
-DC = {"Health conditions": style.RUST, "Access to care": style.GOLD, "Demographics": style.NAVY, "Socioeconomic status": style.TEAL}
-order = ["Health conditions", "Demographics", "Access to care", "Socioeconomic status"]
-fig, ax = plt.subplots(1, 2, figsize=(12, 4.2)); yy = np.arange(4)[::-1]
+DC = {"Health conditions": style.RUST, "Demographics": style.NAVY, "Socioeconomic status (incl. access)": style.TEAL}
+order = ["Health conditions", "Demographics", "Socioeconomic status (incl. access)"]
+fig, ax = plt.subplots(1, 2, figsize=(12, 4.2)); yy = np.arange(3)[::-1]
 ax[0].barh(yy, [100 * Ld[o] / Ld.sum() for o in order], color=[DC[o] for o in order], height=.6)
 for v, y_ in zip([100 * Ld[o] / Ld.sum() for o in order], yy): ax[0].text(v + 1, y_, f"{v:.0f}%", va="center", fontsize=9)
 ax[0].set_yticks(yy, order); ax[0].set_xlabel("Share of explained variance (LMG, % of R²)"); ax[0].set_title(f"Linear model: who explains the R² of {Ld.sum():.2f}")
 ax[1].barh(yy, [100 * Sd[o] / Sd.sum() for o in order], color=[DC[o] for o in order], height=.6)
 for v, y_ in zip([100 * Sd[o] / Sd.sum() for o in order], yy): ax[1].text(v + 1, y_, f"{v:.0f}%", va="center", fontsize=9)
-ax[1].set_yticks(yy, [""] * 4); ax[1].set_xlabel("Share of total mean |SHAP| (%)"); ax[1].set_title("XGBoost: share of prediction influence")
-for a in ax: a.grid(axis="y", visible=False); a.grid(axis="x", visible=True); a.set_xlim(0, 60)
-fig.tight_layout(); style.save(fig, "drivers_domains", "Source: MEPS HC-243 (2022), adults 18+. LMG = Shapley decomposition of OLS R² over feature blocks; SHAP from CV-tuned XGBoost on log(1 + total $). Demographics = age, sex, race, family, region; SES = income, poverty, education, employment.")
+ax[1].set_yticks(yy, [""] * 3); ax[1].set_xlabel("Share of total mean |SHAP| (%)"); ax[1].set_title("XGBoost: share of prediction influence")
+for a in ax: a.grid(axis="y", visible=False); a.grid(axis="x", visible=True); a.set_xlim(0, 70)
+fig.tight_layout(); style.save(fig, "drivers_domains", "Source: MEPS HC-243 (2022), adults 18+. LMG = Shapley decomposition of OLS R² over feature blocks; SHAP from CV-tuned XGBoost on log(1 + total $). Demographics = age, sex, race, family, region; SES = income, poverty, education, employment, insurance, usual source of care.")
 print(Ld / Ld.sum(), Sd / Sd.sum(), sep="\n")

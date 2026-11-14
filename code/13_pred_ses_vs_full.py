@@ -1,4 +1,4 @@
-"""13 — Prediction with DEMOGRAPHICS + SES only vs FULL feature set (adds access + health), same split for every model.
+"""13 — Prediction with DEMOGRAPHICS + SES only vs FULL feature set (adds health status + clinical history), same split for every model.
 Models: OLS, LASSO, Ridge, Elastic Net (CV), KNN (CV over K), Random forest, Gradient boosting, XGBoost (tuned params), MLP.
 Also: KNN on demographics + SES only -> CV curve, high-cost ROC, permutation-SHAP drivers.
 Outputs: pred_ses_vs_full.png (model comparison), knn_ses_only.png; tables pred_ses_vs_full.csv, knn_ses_shap.csv."""
@@ -16,10 +16,10 @@ from sklearn.neural_network import MLPRegressor
 from sklearn.metrics import r2_score, roc_auc_score, roc_curve
 from xgboost import XGBRegressor
 d = pd.read_csv("data/meps2022_adults.csv")
-SES_N = ["age", "female", "educ_yrs", "fam_income", "fam_size", "married", "employed"]; SES_C = ["race", "pov_cat", "region"]
-FULL_N = SES_N + ["has_usual_source", "health_poor", "mental_poor", "diabetes", "hypertension", "heart_disease", "asthma", "arthritis", "cancer", "n_chronic"]
-FULL_C = SES_C + ["insurance"]
-SETS = {"Demographics + SES only": (SES_N, SES_C), "Full (+ access + health)": (FULL_N, FULL_C)}
+SES_N = ["age", "female", "educ_yrs", "fam_income", "fam_size", "married", "employed", "has_usual_source"]; SES_C = ["race", "pov_cat", "region", "insurance"]  # access to care counts as SES
+FULL_N = SES_N + ["health_poor", "mental_poor", "diabetes", "hypertension", "heart_disease", "asthma", "arthritis", "cancer", "n_chronic"]
+FULL_C = SES_C
+SETS = {"Demographics + SES only": (SES_N, SES_C), "Full (+ health)": (FULL_N, FULL_C)}
 tr, te = train_test_split(d.index, test_size=0.2, random_state=42); w = d.weight; kf = KFold(5, shuffle=True, random_state=42)
 y = d.log_total_exp
 P = pd.read_csv("output/tables/s_xgb_best_params.csv").set_index("param").value.to_dict()
@@ -32,7 +32,7 @@ MODELS = {"OLS": lambda: LinearRegression(), "LASSO": lambda: LassoCV(cv=kf, n_a
           "Random forest": lambda: RandomForestRegressor(300, max_depth=10, min_samples_leaf=20, max_features=.5, n_jobs=-1, random_state=42),
           "Gradient boosting": lambda: GradientBoostingRegressor(n_estimators=400, max_depth=3, learning_rate=.03, subsample=.8, random_state=42),
           "XGBoost": lambda: XGBRegressor(random_state=42, n_jobs=4, tree_method="hist", **P),
-          "Neural net (MLP)": lambda: MLPRegressor((64, 32), alpha=1e-2, max_iter=400, early_stopping=True, random_state=42)}
+          "Neural net (MLP)": lambda: MLPRegressor(hidden_layer_sizes=(64, 32), alpha=1e-2, max_iter=400, early_stopping=True, random_state=42)}
 rows, knn_store = [], {}
 for sname, (num, cat) in SETS.items():
     for mname, mk in MODELS.items():
@@ -45,17 +45,17 @@ for sname, (num, cat) in SETS.items():
 R = pd.DataFrame(rows); R.round(4).to_csv("output/tables/pred_ses_vs_full.csv", index=False)
 
 # ---------- Figure: model comparison, both feature sets
-piv = R.pivot(index="model", columns="features", values="test_R2").sort_values("Full (+ access + health)")
+piv = R.pivot(index="model", columns="features", values="test_R2").sort_values("Full (+ health)")
 fig, ax = plt.subplots(figsize=(10, 5.6)); yy = np.arange(len(piv)); h = .38
-ax.barh(yy + h / 2, piv["Full (+ access + health)"], h, color=style.NAVY, label="Full (+ access + health)")
+ax.barh(yy + h / 2, piv["Full (+ health)"], h, color=style.NAVY, label="Full (+ health)")
 ax.barh(yy - h / 2, piv["Demographics + SES only"], h, color=style.TEAL, label="Demographics + SES only")
-for i, (a, b) in enumerate(zip(piv["Full (+ access + health)"], piv["Demographics + SES only"])):
+for i, (a, b) in enumerate(zip(piv["Full (+ health)"], piv["Demographics + SES only"])):
     ax.text(a + .004, i + h / 2, f"{a:.2f}", va="center", fontsize=8); ax.text(b + .004, i - h / 2, f"{b:.2f}", va="center", fontsize=8)
 ax.set_yticks(yy, piv.index); ax.grid(axis="y", visible=False); ax.grid(axis="x", visible=True); ax.set_xlim(0, .46)
 ax.set_xlabel("Test R² on log(1 + total spending)"); ax.set_title("Out-of-sample fit: demographics + SES alone vs full model")
 ax.legend(loc="lower right", frameon=True, facecolor="white", edgecolor="#DDD", framealpha=1, title="Predictors", title_fontsize=9)
 fig.tight_layout(); style.save(fig, "pred_ses_vs_full", "Source: MEPS HC-243 (2022), adults 18+. Same 80/20 split for all models; penalties and K chosen by 5-fold CV; XGBoost uses CV-tuned settings; test R² survey-weighted. "
-                                 "SES = income, poverty category, education, employment; demographics = age, sex, race, family size, marital status, region.")
+                                 "SES = income, poverty category, education, employment, insurance, usual source of care; demographics = age, sex, race, family size, marital status, region.")
 
 # ---------- KNN on demographics + SES only: CV curve, high-cost ROC, SHAP drivers
 num, cat = SETS["Demographics + SES only"]; X = d[num + cat]
@@ -81,7 +81,7 @@ hi = np.where(pk >= np.quantile(pk, .9))[0]; lo = np.where(pk < np.quantile(pk, 
 idx = np.r_[rs.choice(hi, 150, replace=False), rs.choice(lo, 150, replace=False)]
 XE = enc(X.loc[te].iloc[idx]).fillna(med)
 sv = shap.PermutationExplainer(lambda a: gc.predict_proba(dec(a))[:, 1], shap.maskers.Independent(bg.values), max_evals=2 * XE.shape[1] + 1)(XE.values).values
-NICE = {"age": "Age", "female": "Female", "educ_yrs": "Education (years)", "fam_income": "Family income", "fam_size": "Family size", "married": "Married",
+NICE = {"insurance": "Insurance", "has_usual_source": "Usual source of care", "age": "Age", "female": "Female", "educ_yrs": "Education (years)", "fam_income": "Family income", "fam_size": "Family size", "married": "Married",
         "employed": "Employed", "race": "Race/ethnicity", "pov_cat": "Income (% FPL)", "region": "Region"}
 S = pd.DataFrame(sv, columns=num + cat); flag = np.r_[np.ones(150), np.zeros(150)].astype(bool)
 imp = S.abs().mean().sort_values(ascending=False)

@@ -18,7 +18,7 @@ FIND = [(f"\\${mean_tot:,.0f}", "mean annual spending per adult (2022)"),
         (f"Top 5% → {top5:.0%}", "of all spending (highly skewed)")]
 try:
     prof = pd.read_csv(T + "u_cluster_profiles.csv", index_col=0)
-    FIND.append(("7 profiles", r"from \$2.9k to \$16.5k per person (K-means)"))
+    te = prof.loc["total_exp"]; FIND.append((f"{prof.shape[1]} profiles", rf"from \${te.min()/1e3:.1f}k to \${te.max()/1e3:.1f}k per person (K-means)"))
 except Exception: pass
 try:
     m = pd.read_csv(T + "s_regression_metrics.csv"); col = [c for c in m.columns if "r2" in c.lower()][0]
@@ -76,7 +76,7 @@ def g_shap(ax, col):
 GROUPS = [
     ("Data & Sample", BLUE, g_data, "MEPS HC-243 (2022) person file; adults 18+ with survey weights; MEPS missing codes recoded."),
     ("Descriptives", BLUE, g_desc, "Survey-weighted means by age, sex, race, income, insurance and region with design-based 95% CIs."),
-    ("Unsupervised Learning", TEAL, g_unsup, "PCA + K-means (K = 7), checked with Gaussian mixture and Ward clustering; profile spending."),
+    ("Unsupervised Learning", TEAL, g_unsup, "PCA + K-means (K = 6) on demographics + SES (incl. access); raw vs health-adjusted profile spending."),
     ("Supervised Prediction", ORANGE, g_sup, "LASSO, Ridge, Elastic Net, KNN, random forest, boosting, XGBoost, MLP; two-part model; 5-fold CV."),
     ("Interpretation", ORANGE, g_shap, "SHAP (TreeExplainer), permutation importance, LASSO path and LMG R² decomposition."),
     ("Inference: Double ML", PURPLE, g_inf, "Survey-weighted OLS vs. DML partially linear model with cross-fitting; AIPW for uninsured."),

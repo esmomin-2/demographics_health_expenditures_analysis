@@ -1,19 +1,19 @@
 features,model,test_R2
-Demographics + SES only,OLS,0.2155
-Demographics + SES only,LASSO,0.2161
-Demographics + SES only,Ridge,0.2157
-Demographics + SES only,Elastic Net,0.216
-Demographics + SES only,KNN,0.2027
-Demographics + SES only,Random forest,0.2339
-Demographics + SES only,Gradient boosting,0.2368
-Demographics + SES only,XGBoost,0.2389
-Demographics + SES only,Neural net (MLP),0.2175
-Full (+ access + health),OLS,0.3718
-Full (+ access + health),LASSO,0.3719
-Full (+ access + health),Ridge,0.3726
-Full (+ access + health),Elastic Net,0.3716
-Full (+ access + health),KNN,0.349
-Full (+ access + health),Random forest,0.3805
-Full (+ access + health),Gradient boosting,0.3892
-Full (+ access + health),XGBoost,0.3906
-Full (+ access + health),Neural net (MLP),0.3809
+Demographics + SES only,OLS,0.315
+Demographics + SES only,LASSO,0.317
+Demographics + SES only,Ridge,0.3167
+Demographics + SES only,Elastic Net,0.3169
+Demographics + SES only,KNN,0.2907
+Demographics + SES only,Random forest,0.3234
+Demographics + SES only,Gradient boosting,0.3274
+Demographics + SES only,XGBoost,0.3254
+Demographics + SES only,Neural net (MLP),0.3198
+Full (+ health),OLS,0.3718
+Full (+ health),LASSO,0.3719
+Full (+ health),Ridge,0.3726
+Full (+ health),Elastic Net,0.3716
+Full (+ health),KNN,0.349
+Full (+ health),Random forest,0.3805
+Full (+ health),Gradient boosting,0.3892
+Full (+ health),XGBoost,0.3915
+Full (+ health),Neural net (MLP),0.3809

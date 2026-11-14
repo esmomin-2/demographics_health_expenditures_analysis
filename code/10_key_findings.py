@@ -17,7 +17,7 @@ o = pd.read_csv(T + "o_race_by_income_health_adjusted.csv")
 hb = lambda r: o[(o.level == "<200% FPL") & (o.race == r) & (o.outcome == "hb100")]["mean"].iloc[0]
 N = pd.read_csv(T + "o_nested_race_gaps.csv"); g = lambda m, r: N[(N.outcome == "High burden (pp)") & (N.model == m) & (N.race == r)].coef.iloc[0]
 prof = pd.read_csv(T + "u_cluster_profiles.csv", index_col=0)
-osh = prof.loc["oop_share_income"]; old_c = [c for c in prof.columns if "Older" in c][0]; aff = [c for c in prof.columns if "affluent" in c][0]
+osh = prof.loc["oop_share_income"]; old_c = [c for c in prof.columns if "Publicly insured" in c][0]; aff = [c for c in prof.columns if "Privately insured White" in c][0]
 m = pd.read_csv(T + "s_regression_metrics.csv").set_index("model"); r2o, r2b = m.loc["OLS", "R2"], m.R2.max()
 tp2 = pd.read_csv(T + "s_twopart_vs_onepart_dollars.csv"); r2d = tp2[tp2.model.str.startswith("Two-part")].R2_levels.max()
 G = pd.read_csv(T + "interactions_race_gaps.csv"); gg = lambda r, l: G[(G.outcome == "log_total_exp") & (G.moderator == "Age group") & (G.race == r) & (G.level == l)].pct.iloc[0]
@@ -34,7 +34,7 @@ NEW = [
      f"of low-income White vs Black adults pay >10% of family income out of pocket (Hispanic {hb('Hispanic'):.0f}%; adjusted for age, sex, health).",
      "Lower bills for Black and Hispanic adults likely mean they get less care, not that care is more affordable for them."),
     ("Burden-based population profiles", f"{100 * osh[old_c]:.1f}% vs {100 * osh[aff]:.1f}%",
-     "of income paid out of pocket: 'older chronically ill' vs 'healthy affluent' profile (K-means, K = 7).",
+     "of income paid out of pocket: publicly insured, older & lower-income vs privately insured White profile (K-means on demographics + SES, K = 6).",
      "Prior segmentation targets high-need patients only; these profiles cover all adults and link spending to financial burden."),
     ("Access predicts like illness", f"#{rank_us} of 21 predictors",
      "Usual source of care is the 2nd-strongest SHAP driver of spending, behind chronic conditions and ahead of age and income.",

@@ -49,7 +49,7 @@
 | 4 | **Low spending ≠ low strain** | Below 200% FPL, **25%** of White vs **12%** of Black/Hispanic adults face OOP burden >10% of income |
 | 5 | **Medicare narrows the gaps** | Black–White gap **−66%** (18–34) → **−32%** (65+); age × race p < 0.001, while income and insurance moderators are n.s. |
 | 6 | **Access predicts like illness** | Usual source of care is the **#2 SHAP feature**; being uninsured has the largest negative effect |
-| 7 | **Demographics + SES get ~60% of the way** | Test R² **0.24** (demographics + SES) vs **0.39** (+ access & health), consistent across 9 learners |
+| 7 | **Demographics + SES (incl. access) get ~85% of the way** | Test R² **0.33** (demographics + SES incl. insurance & usual source of care) vs **0.39** (+ health status & clinical history), consistent across 9 learners |
 | 8 | **Flexible ML adds little over OLS** | 0.391 (GBM) vs 0.372 (OLS), matching Buntin & Zaslavsky (2004) and Rose (2016) |
 
 > ⚠️ Cross-sectional data: every estimate is a **conditional association, not a causal effect**.
@@ -66,7 +66,7 @@
 flowchart LR
     A[MEPS HC-243<br/>22,431 persons] --> B[Clean & recode<br/>17,387 adults 18+]
     B --> C[Descriptives<br/>health-adjusted margins]
-    B --> D[Unsupervised<br/>PCA · K-means · t-SNE · UMAP]
+    B --> D[Unsupervised<br/>K-means on demographics + SES<br/>then health-adjusted]
     B --> E[Supervised<br/>9 learners · two-part · high-cost]
     E --> F[Explain<br/>SHAP · LMG · permutation]
     B --> G[Inference<br/>survey WLS · interactions · DML]
@@ -85,7 +85,8 @@ flowchart LR
 | **Sample** | Adults 18+ with a positive person weight — **17,387** |
 | **Outcomes** | Total spending (`TOTEXP22`), out-of-pocket (`TOTSLF22`), any spending, top-10% high-cost user, family OOP burden > 10% of income |
 | **Survey design** | Person weights (`PERWT22F`), strata (`VARSTR`), PSUs (`VARPSU`) in every estimate |
-| **Health controls** | Self-rated physical & mental health + six diagnoses (diabetes, hypertension, heart disease, asthma, arthritis, cancer) |
+| **SES** | Income (% FPL), education, employment **and access to care** (insurance type, usual source of care) |
+| **Health** | Self-rated physical & mental health + clinical history: six diagnoses (diabetes, hypertension, heart disease, asthma, arthritis, cancer). Used as an adjustment layer, not as a grouping variable |
 
 
 <br/>
@@ -108,9 +109,9 @@ flowchart LR
 
 <p align="center"><img src="output/main_figures/figure_3_drivers_by_domain.png" width="90%"/></p>
 
-> **Fig 3: Health explains the most, but insurance is next.**
+> **Fig 3: Health explains the most in the linear model, but SES (incl. access) matters as much in XGBoost.**
 >
-> In the linear (LMG) decomposition, health accounts for **40%** of explained variance, insurance **16%**, age **13%**, family **12%** and race **9%**. Income adds only **2%** once the other factors are in the model. SHAP from XGBoost gives a similar ranking.
+> In the linear (LMG) decomposition, health accounts for **40%** of explained variance, demographics **39%** and SES including access to care **21%** (most of it insurance). In XGBoost's SHAP values the three domains are close: demographics **36%**, SES incl. access **34%**, health **30%**.
 
 <br/>
 
@@ -158,23 +159,23 @@ flowchart LR
 
 ## ④ Population profiles (unsupervised learning)
 
-*PCA and K-means clustering, checked against Gaussian-mixture and Ward clustering.*
+*K-means clustering on **demographics and SES (including access to care) only**. Health status and clinical history are deliberately left out, so the profiles describe who people are; health enters afterwards as an adjustment.*
 
 <br/>
 
 <p align="center"><img src="output/main_figures/figure_8_profiles_pca_tsne_umap.png" width="90%"/></p>
 
-> **Fig 8: The sample falls into seven distinct profiles.**
+> **Fig 8: Six demographic and socioeconomic profiles.**
 >
-> K-means finds groups such as older chronically ill adults, healthy affluent White workers and young, often uninsured Hispanic adults. The groups separate clearly in PCA, t-SNE and UMAP, and the alternative clustering methods give similar groups.
+> Privately insured White adults (43% of adults), privately insured Black & Hispanic workers (19%), publicly insured older & lower-income adults (21%), Asian higher-income adults (6%), uninsured adults (7%) and near-poor adults (3%). Insurance and income drive the first principal component. K-means and a Gaussian mixture agree almost perfectly (ARI 0.95).
 
 <br/>
 
-<p align="center"><img src="output/main_figures/figure_9_spending_by_profile.png" width="75%"/></p>
+<p align="center"><img src="output/main_figures/figure_9_spending_by_profile.png" width="90%"/></p>
 
-> **Fig 9: Spending varies more than fivefold across profiles.**
+> **Fig 9: Holding health constant changes the ranking, and gaps tied to insurance and race remain.**
 >
-> Mean spending ranges from **$2.9k to $16.5k** per person. Older chronically ill adults spend the most. Young, often uninsured Hispanic adults spend the least, about **92% less** than the reference profile.
+> Bars are health-adjusted means; black diamonds are unadjusted means. The publicly insured, older & lower-income profile spends the most raw (**$10.4k**), but this falls to **$7.1k** once health is held fixed, so its high spending is mostly about being sicker. Privately insured White adults spend about the same either way (**$8.7k → $9.1k**). Privately insured Black & Hispanic workers stay well below them (**$6.6k** adjusted) despite similar coverage. Uninsured adults spend the least by far: **$1.3k** raw and **$3.5k** adjusted, still less than half of any insured profile.
 
 <br/>
 
@@ -188,9 +189,9 @@ flowchart LR
 
 <p align="center"><img src="output/main_figures/figure_10_prediction_ses_vs_full.png" width="90%"/></p>
 
-> **Fig 10: Demographics and SES alone get about 60% of the way.**
+> **Fig 10: Demographics and SES (including access to care) get about 85% of the way.**
 >
-> In every learner, test R² is about **0.22–0.24** with demographics and SES only and about **0.37–0.39** once access and health are added. Who someone is predicts spending moderately well; how sick they are and whether they have access to care add the rest.
+> In every learner, test R² is about **0.29–0.33** with demographics and SES (incl. insurance and usual source of care) and about **0.35–0.39** once health status and clinical history are added. Who someone is and their access to care predict most of what the model can explain; health adds the rest.
 
 <br/>
 
@@ -219,9 +220,9 @@ flowchart LR
 
 <p align="center"><img src="output/main_figures/figure_12_knn_demographics_ses_only.png" width="90%"/></p>
 
-> **Fig 12: Without health information, race, employment and age drive the predictions.**
+> **Fig 12: Without health information, race, employment and insurance drive the predictions.**
 >
-> When KNN sees only demographics and SES, race/ethnicity, employment, age and income (% FPL) are the main features behind high-cost predictions.
+> When KNN sees only demographics and SES (incl. access), race/ethnicity, employment, insurance, age and income (% FPL) are the main features behind high-cost predictions (AUC **0.71**).
 
 <br/>
 
@@ -266,6 +267,8 @@ It uses a partially linear model with repeated 5-fold cross-fitting, and it also
 | SHAP dependence: age | SHAP dependence: family income |
 | ![](output/figures/supplementary/interactions_shap.png) | ![](output/figures/supplementary/i_ols_coefplot.png) |
 | SHAP interaction pairs | OLS coefficients |
+| ![](output/figures/supplementary/robust_withhealth_embeddings.png) | ![](output/figures/supplementary/robust_withhealth_cluster_spending.png) |
+| Robustness: profiles when health *is* included in clustering (K = 7) | Robustness: spending by those health-inclusive profiles |
 
 </details>
 
@@ -278,7 +281,7 @@ It uses a partially linear model with repeated 5-fold cross-fitting, and it also
 | Block | Methods |
 |---|---|
 | Descriptives | Survey-weighted means, Taylor-linearized SEs, health-adjusted predictive margins |
-| Unsupervised | PCA; K-means (elbow + silhouette, K = 7) vs GMM & Ward (ARI); t-SNE, UMAP |
+| Unsupervised | PCA; K-means on demographics + SES incl. access (silhouette, K = 6) vs GMM & Ward (ARI); t-SNE, UMAP; raw vs health-adjusted profile spending |
 | Supervised | OLS, LASSO, Ridge, Elastic Net, KNN, RF, GBM, XGBoost, MLP; 80/20 split, 5-fold CV; two-part hurdle with Duan smearing; high-cost classifier |
 | Explainability | TreeSHAP, permutation SHAP (KNN), SHAP interactions, LMG R² decomposition, permutation importance |
 | Inference | Survey WLS with strata × PSU clustered SEs; nested models; race × moderator Wald tests |

@@ -1,4 +1,5 @@
-"""Unsupervised profiles of US adults (MEPS 2022): PCA, K-means, GMM, Ward; weighted spending profiles."""
+"""Unsupervised profiles built from demographics, SES and access only (health deliberately excluded, so profiles describe
+who people are; health enters afterwards as an adjustment). Profiles of US adults (MEPS 2022): PCA, K-means, GMM, Ward; weighted spending profiles."""
 import sys; sys.path.insert(0, "code"); import style; style.apply()
 import numpy as np, pandas as pd, matplotlib
 matplotlib.use("Agg")
@@ -15,8 +16,7 @@ UNW = "Source: MEPS 2022 Full-Year Consolidated File (HC-243); adults 18+, unwei
 FIG, TAB = "output/figures/", "output/tables/"
 d = pd.read_csv("data/meps2022_adults.csv")
 
-num = ["age", "female", "educ_yrs", "fam_size", "health_poor", "mental_poor", "married", "employed",
-       "has_usual_source", "diabetes", "hypertension", "heart_disease", "asthma", "arthritis", "cancer", "n_chronic"]
+num = ["age", "female", "educ_yrs", "fam_size", "married", "employed", "has_usual_source"]  # no health variables
 cat = ["race", "pov_cat", "insurance", "region"]
 Xn = d[num].fillna(d[num].median())
 X = pd.concat([Xn, pd.get_dummies(d[cat], prefix=cat, prefix_sep=": ", dtype=float)], axis=1)
@@ -78,7 +78,9 @@ agree.to_csv(TAB + "u_cluster_agreement.csv", index=False); print(agree)
 # ---- Weighted profiles
 d["cluster"] = lab
 w = d.weight
-prof_vars = feat + ["total_exp", "oop_exp", "any_exp", "oop_share_income", "office_visits", "er_visits"]
+HV = ["health_poor", "mental_poor", "n_chronic", "diabetes", "hypertension"]
+X = pd.concat([X, d[HV]], axis=1)  # health described (not clustered on)
+prof_vars = feat + HV + ["total_exp", "oop_exp", "any_exp", "oop_share_income", "office_visits", "er_visits"]
 D = pd.concat([X, d[["total_exp", "oop_exp", "any_exp", "oop_share_income", "office_visits", "er_visits", "cluster", "weight"]]], axis=1)
 def wmean(g):
     out = {}
@@ -87,7 +89,7 @@ def wmean(g):
     out["pop_share"] = g.weight.sum() / w.sum(); out["n"] = len(g)
     return pd.Series(out)
 prof = D.groupby("cluster").apply(wmean).T
-print(prof.loc[["pop_share", "n", "age", "health_poor", "n_chronic", "insurance: Public only", "insurance: Uninsured",
+print(prof.loc[["pop_share", "n", "age", "health_poor", "mental_poor", "n_chronic", "insurance: Public only", "insurance: Uninsured",
                 "pov_cat: High income", "pov_cat: Poor (<100% FPL)", "employed", "married", "race: Hispanic", "female",
                 "has_usual_source", "educ_yrs", "total_exp", "oop_exp", "any_exp", "oop_share_income"]].round(3).to_string())
 
@@ -160,3 +162,21 @@ fig.text(0.035, 0.0, "", fontsize=1)
 style.save(fig, "u_embeddings_compare", UNW + " Same 5,000 adults and K-means labels in all panels; outlines = densest 60% of each profile.")
 from sklearn.metrics import silhouette_score as ss
 print({t: round(ss(E, ls), 3) for t, E in EMB.items()})
+
+# ---- Raw vs health-adjusted spending by profile
+from margins import adjusted_means, HEALTH
+am = adjusted_means(d, "total_exp", "cname", HEALTH)
+raw = d.groupby("cname").apply(lambda g: np.average(g.total_exp, weights=g.weight))
+am["raw_mean"] = am.level.map(raw); am["lo"] = am.adj_mean - 1.96 * am.se; am["hi"] = am.adj_mean + 1.96 * am.se
+am = am.sort_values("adj_mean").reset_index(drop=True)
+am.round(1).to_csv(TAB + "u_cluster_spending_raw_vs_adjusted.csv", index=False); print(am.round(0))
+inv = {v: k for k, v in names.items()}
+fig, ax = plt.subplots(figsize=(10, 5)); y = np.arange(len(am))
+ax.barh(y, am.adj_mean, xerr=[am.adj_mean - am.lo, am.hi - am.adj_mean], color=[CL[inv[l]] for l in am.level],
+        alpha=.85, error_kw=dict(ecolor="#333", lw=1, capsize=3))
+ax.scatter(am.raw_mean, y, marker="D", s=60, color="#111", edgecolor="white", linewidth=.8, zorder=5, label="Unadjusted mean")
+for yi, r in am.iterrows(): ax.plot([r.raw_mean, r.adj_mean], [yi, yi], color="#222", lw=.8, ls=":", zorder=3)
+ax.set_yticks(y, am.level); ax.grid(axis="y", visible=False)
+ax.set_xlabel("Mean total expenditure per person, 2022 (US $)")
+ax.set_title("Spending by demographic profile: bars = health-adjusted mean (95% CI)"); ax.legend(loc="lower right", frameon=True)
+fig.tight_layout(); style.save(fig, "u_cluster_spending_adj", "Source: MEPS 2022 HC-243; adults 18+, survey-weighted. Adjusted = predictive margins holding self-rated health and six conditions at sample values.")

@@ -1,8 +1,7 @@
 ,coef,se,p
-Intercept,6.9869,0.0539,0.0
-"Asian, higher-income",-0.7397,0.1682,0.0
-Black working-age adults,-1.2183,0.1227,0.0
-Multiracial/Other adults,-0.5546,0.2287,0.0153
-"Near-poor, publicly insured",-0.6276,0.2014,0.0018
-Older chronically ill (65+),1.6418,0.0579,0.0
-"Young Hispanic, often uninsured",-2.5329,0.1092,0.0
+Intercept,7.3211,0.0507,0.0
+"Asian, higher-income",-0.9892,0.1645,0.0
+Near-poor adults,-0.9061,0.1989,0.0
+Privately insured Black & Hispanic workers,-1.4936,0.1006,0.0
+"Publicly insured, older & lower-income",-0.0637,0.1009,0.5279
+Uninsured adults,-4.2994,0.1528,0.0
