@@ -12,6 +12,8 @@
 ![Data](https://img.shields.io/badge/data-MEPS%20HC--243%20(2022)-012169)
 ![Course](https://img.shields.io/badge/Emory-ECON%20442-F2A900)
 
+**Eshan Momin · Zach Etizioni · Amulya Arora**
+
 *ECON 442 · Machine Learning for Economics · Emory University · Fall 2026*
 
 </div>
