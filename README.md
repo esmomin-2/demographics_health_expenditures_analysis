@@ -72,41 +72,34 @@ flowchart LR
 | **Survey design** | Person weights (`PERWT22F`), strata (`VARSTR`), PSUs (`VARPSU`) in every estimate |
 | **Health controls** | Self-rated physical & mental health + six diagnoses (diabetes, hypertension, heart disease, asthma, arthritis, cancer) |
 
-Script: [`01_prepare_data.py`](code/01_prepare_data.py)
 
-### ② Descriptives — *who spends more?*
+### ② Descriptives: who spends more?
 <table><tr>
-<td width="50%"><img src="output/main_figures/figure_2_health_adjusted_spending_by_group.png"/><br/><sub><b>Fig 2.</b> Health-adjusted means (bars) vs raw means (diamonds).</sub></td>
-<td width="50%"><img src="output/main_figures/figure_3_drivers_by_domain.png"/><br/><sub><b>Fig 3.</b> Share of explained variance by domain: LMG (linear) vs SHAP (XGBoost).</sub></td>
+<td width="50%"><img src="output/main_figures/figure_2_health_adjusted_spending_by_group.png"/><br/><sub><b>Fig 2. Most of the "older people spend more" story is really about health.</b> Unadjusted, adults 65+ spend about 3× what adults 18–34 do. After holding health constant (bars), the difference falls to about 1.2× ($8.5k vs $7.2k). Race gaps barely move after this adjustment.</sub></td>
+<td width="50%"><img src="output/main_figures/figure_3_drivers_by_domain.png"/><br/><sub><b>Fig 3. Health explains the most, but insurance is next.</b> In the linear (LMG) decomposition, health accounts for 40% of explained variance, insurance 16%, age 13%, family 12% and race 9%. Income adds only 2% once the other factors are in the model. SHAP from XGBoost gives a similar ranking.</sub></td>
 </tr></table>
 
 <img src="output/main_figures/figure_4_demographic_ses_access_drivers.png"/>
-<sub><b>Fig 4.</b> Adjusted % differences in total spending from one survey-weighted model with every factor included.</sub>
+<sub><b>Fig 4. Race gaps remain even when everything is in the model.</b> With health, SES and access held fixed, NH Black adults spend 52%, Hispanic adults 54% and NH Asian adults 37% less than NH White adults. Adults 65+ spend 45% more than adults 18–34, and the Midwest and West spend about 20–25% more than the South.</sub>
 
-Scripts: [`02_descriptives.py`](code/02_descriptives.py) · [`margins.py`](code/margins.py) · [`12_drivers.py`](code/12_drivers.py)
-
-### ③ Race, income & out-of-pocket burden
+### ③ Race, income and out-of-pocket burden
 <table><tr>
-<td width="50%"><img src="output/main_figures/figure_5_oop_race_by_income.png"/><br/><sub><b>Fig 5.</b> Who pays more vs who is strained, by race × income.</sub></td>
-<td width="50%"><img src="output/main_figures/figure_6_oop_race_gaps_nested_models.png"/><br/><sub><b>Fig 6.</b> Race gaps as controls are layered in.</sub></td>
+<td width="50%"><img src="output/main_figures/figure_5_oop_race_by_income.png"/><br/><sub><b>Fig 5. Spending less is not the same as being under less financial strain.</b> Among low-income adults (below 200% FPL), 25% of White adults are in families paying more than 10% of income out of pocket, compared with 12% of Black and Hispanic adults (health-adjusted).</sub></td>
+<td width="50%"><img src="output/main_figures/figure_6_oop_race_gaps_nested_models.png"/><br/><sub><b>Fig 6. Controls shrink the out-of-pocket race gaps but do not close them.</b> Adding age, sex, income, insurance and health in turn shrinks the Hispanic–White gap from −2.09 to −1.13 log points and the Black–White gap from −1.57 to −1.12. Both remain highly significant.</sub></td>
 </tr></table>
 
 <img src="output/main_figures/figure_7_race_gap_interactions.png"/>
-<sub><b>Fig 7.</b> Race × age and race × sex interactions — gaps narrow sharply at Medicare age.</sub>
+<sub><b>Fig 7. Race gaps get much smaller at Medicare age.</b> The Black–White spending gap is −66% at ages 18–34 and −32% at 65+. The Hispanic–White gap goes from −64% to −13% (age × race interaction p < 0.001). Income and insurance do not significantly change the gaps (p = 0.20 and 0.29).</sub>
 
-Scripts: [`08_focused_oop.py`](code/08_focused_oop.py) · [`14_interactions.py`](code/14_interactions.py)
-
-### ④ Unsupervised learning — *population profiles*
+### ④ Unsupervised learning: population profiles
 <table><tr>
-<td width="55%"><img src="output/main_figures/figure_8_profiles_pca_tsne_umap.png"/><br/><sub><b>Fig 8.</b> Seven K-means profiles in PCA, t-SNE and UMAP space (validated against GMM and Ward via ARI).</sub></td>
-<td width="45%"><img src="output/main_figures/figure_9_spending_by_profile.png"/><br/><sub><b>Fig 9.</b> Mean spending by profile: $2.9k → $16.5k.</sub></td>
+<td width="55%"><img src="output/main_figures/figure_8_profiles_pca_tsne_umap.png"/><br/><sub><b>Fig 8. The sample falls into seven distinct profiles.</b> K-means finds groups such as older chronically ill adults, healthy affluent White workers and young, often uninsured Hispanic adults. The groups separate clearly in PCA, t-SNE and UMAP, and Gaussian-mixture and Ward clustering give similar groups.</sub></td>
+<td width="45%"><img src="output/main_figures/figure_9_spending_by_profile.png"/><br/><sub><b>Fig 9. Spending varies more than fivefold across profiles.</b> Mean spending ranges from $2.9k to $16.5k per person. Older chronically ill adults spend the most. Young, often uninsured Hispanic adults spend the least, about 92% less than the reference profile.</sub></td>
 </tr></table>
-
-Script: [`03_unsupervised.py`](code/03_unsupervised.py)
 
 ### ⑤ Supervised prediction
 <img src="output/main_figures/figure_10_prediction_ses_vs_full.png"/>
-<sub><b>Fig 10.</b> Demographics + SES only vs the full feature set, across 9 learners.</sub>
+<sub><b>Fig 10. Demographics and SES alone get about 60% of the way.</b> In every one of the 9 learners, test R² is about 0.22–0.24 with demographics and SES only and about 0.37–0.39 once access and health are added. Who someone is predicts spending moderately well; how sick they are and whether they have access to care add the rest.</sub>
 
 | Model | Test R² (log $) | | Model | Test R² (log $) |
 |---|:-:|---|---|:-:|
@@ -115,22 +108,19 @@ Script: [`03_unsupervised.py`](code/03_unsupervised.py)
 | Random forest | 0.386 | | LASSO | 0.371 |
 | MLP | 0.378 | | Elastic Net | 0.371 |
 
-<table><tr>
-<td width="50%"><img src="output/main_figures/figure_11_knn_full_model.png"/><br/><sub><b>Fig 11.</b> KNN: choice of K, high-cost ROC, SHAP drivers.</sub></td>
-<td width="50%"><img src="output/main_figures/figure_12_knn_demographics_ses_only.png"/><br/><sub><b>Fig 12.</b> Same analysis, demographics + SES only.</sub></td>
-</tr></table>
+<sub>Flexible ML models beat OLS by only about 0.02 R², consistent with earlier health-spending research.</sub>
 
-Scripts: [`04_supervised.py`](code/04_supervised.py) · [`06_knn.py`](code/06_knn.py) · [`13_pred_ses_vs_full.py`](code/13_pred_ses_vs_full.py) · [`15_loss_hyperparameter.py`](code/15_loss_hyperparameter.py)
+<table><tr>
+<td width="50%"><img src="output/main_figures/figure_11_knn_full_model.png"/><br/><sub><b>Fig 11. KNN does about as well as OLS.</b> Cross-validation selects K = 60 (distance-weighted), with test R² 0.35 vs 0.37 for OLS. Chronic conditions and access drive its high-cost predictions.</sub></td>
+<td width="50%"><img src="output/main_figures/figure_12_knn_demographics_ses_only.png"/><br/><sub><b>Fig 12. Without health information, race, employment and age drive the predictions.</b> When KNN sees only demographics and SES, race/ethnicity, employment, age and income (% FPL) are the main features behind high-cost predictions.</sub></td>
+</tr></table>
 
 ### ⑥ Explainability
 <img src="output/main_figures/figure_13_shap_beeswarm.png"/>
-<sub><b>Fig 13.</b> SHAP beeswarm for XGBoost — each dot is one adult.</sub>
+<sub><b>Fig 13. Access to care predicts spending about as strongly as illness does.</b> The number of chronic conditions is the top predictor, and having a usual source of care is a close second. Larger families predict lower spending per person. Being uninsured pushes predicted spending down the most.</sub>
 
-Script: [`09_shap_main.py`](code/09_shap_main.py)
-
-### ⑦ Inference — Double ML
-Partially linear model with repeated 5-fold cross-fitting; LASSO, RF, XGBoost and neural-net nuisance learners; heterogeneity by age.
-Scripts: [`05_inference.py`](code/05_inference.py) · [`16_dml_extensions.py`](code/16_dml_extensions.py)
+### ⑦ Inference: Double ML
+Double ML re-estimates the key associations while letting flexible ML models (LASSO, random forest, XGBoost, neural net) absorb the control variables. It uses a partially linear model with repeated 5-fold cross-fitting, and it also tests whether effects differ by age.
 
 <details>
 <summary><b>📂 Supplementary figures</b> (click to expand)</summary>
