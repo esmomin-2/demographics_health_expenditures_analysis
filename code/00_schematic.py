@@ -39,7 +39,7 @@ def panel(x, y, w, h, title, col=NAVY, body="white", hh=0.48, fs=12):
 def down_arrow(x, y0, y1):
     A.add_patch(FancyArrowPatch((x, y0), (x, y1), arrowstyle="simple,head_width=0.9,head_length=0.7,tail_width=0.35",
                                 mutation_scale=18, fc=NAVY2, ec="none", zorder=4))
-def t_(ax, x, y, s, c=INK, fs=8.5, **k): ax.text(x, y, s, fontsize=fs, color=c, ha=k.pop("ha", "center"), va=k.pop("va", "center"), zorder=8, **k)
+def t_(ax, x, y, s, c=INK, fs=10.5, **k): ax.text(x, y, s, fontsize=fs, color=c, ha=k.pop("ha", "center"), va=k.pop("va", "center"), zorder=8, **k)
 
 # ---------------- glyphs (axis 0-10 x 0-5)
 rng = np.random.default_rng(3)
@@ -74,12 +74,12 @@ def g_shap(ax, col):
     t_(ax, 6.5, 0, "mean |SHAP|", GREY, 7.5)
 
 GROUPS = [
-    ("Data & Sample", BLUE, g_data, "MEPS HC-243 (2022) person file; adults 18+ with survey weights; MEPS missing codes recoded."),
-    ("Descriptives", BLUE, g_desc, "Survey-weighted means by age, sex, race, income, insurance and region with design-based 95% CIs."),
-    ("Unsupervised Learning", TEAL, g_unsup, "PCA + K-means (K = 6) on demographics + SES (incl. access); raw vs health-adjusted profile spending."),
-    ("Supervised Prediction", ORANGE, g_sup, "LASSO, Ridge, Elastic Net, KNN, random forest, boosting, XGBoost, MLP; two-part model; 5-fold CV."),
-    ("Interpretation", ORANGE, g_shap, "SHAP (TreeExplainer), permutation importance, LASSO path and LMG R² decomposition."),
-    ("Inference: Double ML", PURPLE, g_inf, "Survey-weighted OLS vs. DML partially linear model with cross-fitting; AIPW for uninsured."),
+    ("Data & Sample", BLUE, g_data, "17,387 MEPS 2022 adults, survey-weighted."),
+    ("Descriptives", BLUE, g_desc, "Who spends more, raw vs health-adjusted."),
+    ("Unsupervised Learning", TEAL, g_unsup, "K-means profiles from demographics + SES."),
+    ("Supervised Prediction", ORANGE, g_sup, "Nine ML models predict spending."),
+    ("Interpretation", ORANGE, g_shap, "SHAP shows what drives predictions."),
+    ("Inference: Double ML", PURPLE, g_inf, "DML tests gaps with flexible controls."),
 ]
 
 # ---------------- header band
@@ -98,9 +98,9 @@ gx, gy = 0.2, 0.25; pw = (LX1 - LX0 - 2 * gx) / 3; ph = (TOP - BOT - gy) / 2
 for i, (name, col, draw, txt) in enumerate(GROUPS):
     r, c = divmod(i, 3); x = LX0 + c * (pw + gx); y = TOP - (r + 1) * ph - r * gy
     panel(x, y, pw, ph, f"{i + 1}  {name}", col)
-    dax = fig.add_axes([(x + 0.35) / W, (y + 1.55) / H, (pw - 0.7) / W, (ph - 2.15) / H]); dax.set_xlim(0, 10); dax.set_ylim(-0.3, 5)
+    dax = fig.add_axes([(x + 0.3) / W, (y + 0.85) / H, (pw - 0.6) / W, (ph - 1.45) / H]); dax.set_xlim(0, 10); dax.set_ylim(-0.3, 5)
     dax.axis("off"); draw(dax, col)
-    A.text(x + 0.2, y + 1.3, textwrap.fill(txt, 40, break_on_hyphens=False), fontsize=12, color=INK, va="top", linespacing=1.35)
+    A.text(x + pw / 2, y + 0.42, txt, fontsize=13, color=INK, ha="center", va="center", fontweight="medium")
 
 # ---------------- right: flow
 def box(y0, y1, title, sub, col=NAVY2):
@@ -110,7 +110,7 @@ def box(y0, y1, title, sub, col=NAVY2):
     A.text(RX + 0.17, (y0 + y1 - 0.38) / 2, sub, fontsize=9.4, color=INK, va="center", linespacing=1.3, zorder=3)
 b1 = (TOP - 1.05, TOP); box(*b1, "Outcomes", "Total & out-of-pocket spending, any use,\nlog(1 + $), top-10% high-cost user")
 down_arrow(RX + RW / 2, b1[0] - 0.04, b1[0] - 0.26)
-b2 = (b1[0] - 1.35, b1[0] - 0.3); box(*b2, "Predictors", "Age, sex, race/ethnicity, education, income\n(% FPL), family size, region; insurance & health")
+b2 = (b1[0] - 1.35, b1[0] - 0.3); box(*b2, "Predictors", "Age, sex, race/ethnicity, education, income\n(% FPL), insurance & usual source of care; health")
 down_arrow(RX + RW / 2, b2[0] - 0.04, b2[0] - 0.26)
 my1 = b2[0] - 0.3; my0 = my1 - 0.5; bw = (RW - 0.2) / 3
 for k_, (lab, col) in enumerate((("Cluster", TEAL), ("Predict", ORANGE), ("Infer", PURPLE))):
