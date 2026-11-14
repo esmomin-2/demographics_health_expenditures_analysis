@@ -41,29 +41,19 @@
 
 <br/>
 
-| # | Finding | Evidence |
-|:-:|---|---|
-| 1 | **Spending is extremely concentrated** | Top 5% → **47%** of spending (AHRQ benchmark: 48–51%) |
-| 2 | **The age gradient is mostly health** | 65+ vs 18–34: **3.0×** unadjusted → **1.2×** health-adjusted ($8.5k vs $7.2k) |
-| 3 | **Race gaps survive full adjustment** | vs NH White, holding health, SES & access fixed: NH Black **−52%**, Hispanic **−54%**, NH Asian **−37%** |
-| 4 | **Low spending ≠ low strain** | Below 200% FPL, **25%** of White vs **12%** of Black/Hispanic adults face OOP burden >10% of income |
-| 5 | **Medicare narrows the gaps** | Black–White gap **−66%** (18–34) → **−32%** (65+); age × race p < 0.001, while income and insurance moderators are n.s. |
-| 6 | **Access predicts like illness** | Usual source of care is the **#2 SHAP feature**; being uninsured has the largest negative effect |
-| 7 | **Demographics + SES (incl. access) get ~85% of the way** | Test R² **0.33** (demographics + SES incl. insurance & usual source of care) vs **0.39** (+ health status & clinical history), consistent across 9 learners |
-| 8 | **Flexible ML adds little over OLS** | 0.391 (GBM) vs 0.372 (OLS), matching Buntin & Zaslavsky (2004) and Rose (2016) |
+### Five main findings
 
-<br/>
+1. **Much of the "who spends more" story is really about health.** Adults 65+ spend 3× what 18–34s do, but only **1.2×** at equal health. The publicly insured, older & lower-income profile drops from **$10.4k to $7.1k** once health is held fixed. Spending is also highly concentrated: the top 5% of adults account for **47%** of it.
 
-#### Population profiles (K-means on demographics + SES incl. access; health excluded from clustering)
+2. **Race gaps persist even with the same health and coverage.** With health, SES and access held fixed, Black adults spend **52%**, Hispanic adults **54%** and Asian adults **37%** less than White adults. Privately insured Black & Hispanic workers spend **$6.6k** vs **$9.1k** for privately insured White adults at equal health. The gaps narrow sharply at Medicare age (Black–White **−66% → −32%**).
 
-| # | Finding | Evidence |
-|:-:|---|---|
-| 9 | **High public-insurance spending is mostly illness** | Publicly insured, older & lower-income profile: **$10.4k** raw → **$7.1k** health-adjusted, falling below privately insured White adults |
-| 10 | **Same coverage, different spending** | Privately insured Black & Hispanic workers spend **$6.6k** vs **$9.1k** for privately insured White adults at equal health (**~27% less**) |
-| 11 | **Being uninsured is the biggest barrier** | Uninsured adults spend **$3.5k** health-adjusted, under half of any insured profile; only **46%** had any spending vs 79–92% elsewhere |
-| 12 | **Spending and strain diverge** | Publicly insured profile pays **6.4%** of family income out of pocket, twice the **3.2%** for privately insured White adults |
+3. **Access to care is the biggest lever after illness.** Having a usual source of care is the **#2 predictor** of spending. Uninsured adults spend **$3.5k** even at equal health, less than half of any insured profile, and only **46%** had any spending at all.
 
-<sub>Six profiles at K = 6 (best silhouette for K = 4–7, 0.14). K-means vs Gaussian mixture agreement ARI **0.95**; vs Ward 0.51; profiles differ in spending (joint Wald p < 10⁻²⁰⁰). The near-poor profile (3%, n = 771) is defined almost entirely by one income category and has a very wide CI, so it is not interpreted.</sub>
+4. **Low spending does not mean low financial strain.** Among low-income adults, **25%** of White vs **12%** of Black/Hispanic adults pay more than 10% of income out of pocket. The publicly insured profile pays **6.4%** of family income out of pocket, twice the share for privately insured White adults (**3.2%**).
+
+5. **Who you are and your access to care predict most of spending, and fancy ML adds little.** Demographics + SES (incl. access) reach test R² **0.33**, about **85%** of the full model's **0.39**. Gradient boosting beats OLS by only 0.02 (0.39 vs 0.37), consistent with prior research.
+
+<sub>Profiles are from K-means (K = 6) on demographics + SES incl. access, with health excluded from clustering; K-means and a Gaussian mixture agree closely (ARI 0.95). The small near-poor profile (3%) is not interpreted.</sub>
 
 > ⚠️ Cross-sectional data: every estimate is a **conditional association, not a causal effect**.
 
