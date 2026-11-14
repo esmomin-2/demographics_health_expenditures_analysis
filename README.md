@@ -247,11 +247,25 @@ flowchart LR
 
 ---
 
-## ⑦ Inference: Double ML
+## ⑦ Inference: Double ML on the profiles
 
-Double ML re-estimates the key associations while letting flexible ML models (LASSO, random forest, XGBoost, neural net) absorb the control variables.
+*Does each profile's spending gap survive when health is adjusted for as flexibly as machine learning allows?*
 
-It uses a partially linear model with repeated 5-fold cross-fitting, and it also tests whether effects differ by age.
+Double ML (DML) first uses an ML model to remove everything health can explain from both spending and profile membership. It then measures the gap in what is left. Cross-fitting (5 folds × 3 repeats) keeps the estimates honest and gives valid confidence intervals. Each profile is compared with privately insured White adults, using LASSO, random forest and XGBoost in turn.
+
+<br/>
+
+<p align="center"><img src="output/figures/dml_profiles.png" width="95%"/></p>
+
+> **Fig 14: The profile gaps hold up under flexible health adjustment. DML lands almost exactly on the simple linear adjustment.**
+>
+> All three ML learners agree with each other and with OLS within a few percentage points, so the gaps are not an artifact of modelling health too simply.
+> - **Uninsured adults:** about **−98%** in total and **−94%** in out-of-pocket spending, and **45 pp** less likely to use any care, whichever method is used.
+> - **Privately insured Black & Hispanic workers:** **−79%** raw → **−75%** OLS → **−73 to −75%** DML. Health explains almost none of the gap.
+> - **Publicly insured, older & lower-income:** the raw gap is near zero (**−5%**) but becomes **about −52%** once health is held fixed. This group is much sicker, and at equal health it uses far less care.
+> - **Asian, higher-income:** **−71%** raw → **about −57%** after adjustment.
+
+<sub>These are gaps in log(1 + $), roughly typical (geometric-mean) spending, so they are much larger than the gaps in mean dollars in Fig 9. Many adults have zero or low spending, and a few very high spenders pull the mean up. DML is unweighted; raw and OLS gaps are unweighted with SEs clustered by strata × PSU. The near-poor profile is not interpreted. These are associations, not causal effects.</sub>
 
 <br/>
 
@@ -288,7 +302,7 @@ It uses a partially linear model with repeated 5-fold cross-fitting, and it also
 | Supervised | OLS, LASSO, Ridge, Elastic Net, KNN, RF, GBM, XGBoost, MLP; 80/20 split, 5-fold CV; two-part hurdle with Duan smearing; high-cost classifier |
 | Explainability | TreeSHAP, permutation SHAP (KNN), SHAP interactions, LMG R² decomposition, permutation importance |
 | Inference | Survey WLS with strata × PSU clustered SEs; nested models; race × moderator Wald tests |
-| Double ML | Partially linear model, repeated cross-fitting, 4 nuisance learners |
+| Double ML | Partially linear model on profile vs reference, health as flexible controls; 5-fold cross-fitting × 3 repeats; LASSO, RF, XGBoost |
 | Loss tuning | \|y − x′θ\|<sup>a</sup> with a chosen by CV (a = 1 LAD ↔ a = 2 OLS) |
 
 Literature comparison with verified citations: [`output/literature_review.md`](output/literature_review.md)

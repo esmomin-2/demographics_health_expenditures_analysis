@@ -16,7 +16,7 @@ from xgboost import XGBRegressor
 K, R, SEED = 5, 3, 42
 df = pd.read_csv("data/meps2022_adults.csv")
 health = ["health_poor", "mental_poor", "diabetes", "hypertension", "heart_disease", "asthma", "arthritis", "cancer"]
-df = df.dropna(subset=["age", "female", "race", "educ_yrs", "pov_cat", "fam_size", "married", "region", "insurance"] + health).reset_index(drop=True)
+df = df.dropna(subset=["age", "female", "race", "educ_yrs", "pov_cat", "fam_size", "married", "region", "insurance", "has_usual_source", "employed"] + health).reset_index(drop=True)
 df["age2"] = df.age ** 2 / 100
 for r, n in [("NH Black", "black"), ("Hispanic", "hispanic"), ("NH Asian", "asian"), ("NH Other/Multi", "other_race")]: df[n] = (df.race == r).astype(float)
 df["poor_nearpoor"] = df.pov_cat.isin(["Poor (<100% FPL)", "Near poor"]).astype(float); df["pov_low"] = (df.pov_cat == "Low income").astype(float)
@@ -24,12 +24,12 @@ df["pov_mid"] = (df.pov_cat == "Middle income").astype(float); df["uninsured"] =
 df["public_only"] = (df.insurance == "Public only").astype(float)
 for g in ["Northeast", "Midwest", "West"]: df["reg_" + g] = (df.region == g).astype(float)
 XALL = ["age", "age2", "female", "black", "hispanic", "asian", "other_race", "educ_yrs", "poor_nearpoor", "pov_low", "pov_mid", "fam_size",
-        "married", "reg_Northeast", "reg_Midwest", "reg_West", "uninsured", "public_only"] + health
+        "married", "reg_Northeast", "reg_Midwest", "reg_West", "uninsured", "public_only", "has_usual_source", "employed"] + health
 def learner(n):
-    if n == "LASSO": return make_pipeline(StandardScaler(), LassoCV(cv=3, n_alphas=20, max_iter=3000, n_jobs=-1, random_state=SEED))
+    if n == "LASSO": return make_pipeline(StandardScaler(), LassoCV(cv=3, alphas=20, max_iter=3000, n_jobs=-1, random_state=SEED))
     if n == "RF": return RandomForestRegressor(200, max_depth=10, min_samples_leaf=20, max_features=.5, n_jobs=-1, random_state=SEED)
     if n == "XGB": return XGBRegressor(n_estimators=300, max_depth=4, learning_rate=.05, subsample=.8, colsample_bytree=.8, tree_method="hist", n_jobs=-1, random_state=SEED, verbosity=0)
-    if n == "NN": return make_pipeline(StandardScaler(), MLPRegressor((64, 32), alpha=1e-2, max_iter=300, early_stopping=True, random_state=SEED))
+    if n == "NN": return make_pipeline(StandardScaler(), MLPRegressor(hidden_layer_sizes=(64, 32), alpha=1e-2, max_iter=300, early_stopping=True, random_state=SEED))
 def expand(X):
     X = X.copy()
     for c in ["age", "educ_yrs", "fam_size", "health_poor", "mental_poor"]: X[c + "_sq"] = X[c] ** 2

@@ -1,0 +1,76 @@
+profile,outcome,n,n_profile,method,theta,se,p,pct,lo,hi
+"Asian, higher-income",log_total_exp,7440,936,Raw gap,-1.238,0.1242,0.0,-71.0045,-77.2681,-63.015
+"Asian, higher-income",log_total_exp,7440,936,OLS + health,-0.8976,0.1231,0.0,-59.2445,-67.9824,-48.1219
+"Asian, higher-income",log_total_exp,7440,936,DML-LASSO,-0.8531,0.0993,0.0,-57.3893,-64.9264,-48.2325
+"Asian, higher-income",log_total_exp,7440,936,DML-RF,-0.844,0.0994,0.0,-57.0012,-64.6094,-47.7573
+"Asian, higher-income",log_total_exp,7440,936,DML-XGB,-0.8358,0.0989,0.0,-56.6485,-64.2854,-47.3785
+"Asian, higher-income",log_oop_exp,7440,936,Raw gap,-1.4491,0.1118,0.0,-76.5211,-81.14,-70.771
+"Asian, higher-income",log_oop_exp,7440,936,OLS + health,-1.1537,0.1155,0.0,-68.4541,-74.8465,-60.4373
+"Asian, higher-income",log_oop_exp,7440,936,DML-LASSO,-1.1098,0.0969,0.0,-67.0367,-72.7412,-60.1384
+"Asian, higher-income",log_oop_exp,7440,936,DML-RF,-1.0945,0.0971,0.0,-66.5297,-72.3293,-59.5146
+"Asian, higher-income",log_oop_exp,7440,936,DML-XGB,-1.0969,0.0967,0.0,-66.6083,-72.3733,-59.6402
+"Asian, higher-income",any_exp,7440,936,Raw gap,-0.0828,0.014,0.0,-8.2754,-11.0194,-5.5313
+"Asian, higher-income",any_exp,7440,936,OLS + health,-0.0666,0.0139,0.0,-6.6581,-9.375,-3.9412
+"Asian, higher-income",any_exp,7440,936,DML-LASSO,-0.0638,0.0117,0.0,-6.3829,-8.6728,-4.0931
+"Asian, higher-income",any_exp,7440,936,DML-RF,-0.0623,0.0116,0.0,-6.2323,-8.5136,-3.9509
+"Asian, higher-income",any_exp,7440,936,DML-XGB,-0.0625,0.0115,0.0,-6.2518,-8.5141,-3.9895
+Privately insured Black & Hispanic workers,log_total_exp,9578,3074,Raw gap,-1.5827,0.0863,0.0,-79.4572,-82.6549,-75.67
+Privately insured Black & Hispanic workers,log_total_exp,9578,3074,OLS + health,-1.3842,0.0778,0.0,-74.9473,-78.4904,-70.8205
+Privately insured Black & Hispanic workers,log_total_exp,9578,3074,DML-LASSO,-1.37,0.0638,0.0,-74.5891,-77.5749,-71.2058
+Privately insured Black & Hispanic workers,log_total_exp,9578,3074,DML-RF,-1.336,0.0637,0.0,-73.7108,-76.7944,-70.2175
+Privately insured Black & Hispanic workers,log_total_exp,9578,3074,DML-XGB,-1.3143,0.0633,0.0,-73.1328,-76.2673,-69.5844
+Privately insured Black & Hispanic workers,log_oop_exp,9578,3074,Raw gap,-1.6586,0.0787,0.0,-80.9593,-83.6803,-77.7845
+Privately insured Black & Hispanic workers,log_oop_exp,9578,3074,OLS + health,-1.4816,0.0735,0.0,-77.272,-80.3225,-73.7486
+Privately insured Black & Hispanic workers,log_oop_exp,9578,3074,DML-LASSO,-1.4683,0.0585,0.0,-76.9676,-79.4615,-74.1708
+Privately insured Black & Hispanic workers,log_oop_exp,9578,3074,DML-RF,-1.4436,0.0586,0.0,-76.3923,-78.9555,-73.5168
+Privately insured Black & Hispanic workers,log_oop_exp,9578,3074,DML-XGB,-1.4292,0.0587,0.0,-76.0505,-78.6552,-73.1279
+Privately insured Black & Hispanic workers,any_exp,9578,3074,Raw gap,-0.1402,0.0093,0.0,-14.0167,-15.8403,-12.193
+Privately insured Black & Hispanic workers,any_exp,9578,3074,OLS + health,-0.128,0.0087,0.0,-12.8034,-14.5161,-11.0907
+Privately insured Black & Hispanic workers,any_exp,9578,3074,DML-LASSO,-0.1268,0.0075,0.0,-12.6801,-14.1577,-11.2026
+Privately insured Black & Hispanic workers,any_exp,9578,3074,DML-RF,-0.1227,0.0075,0.0,-12.2671,-13.7353,-10.799
+Privately insured Black & Hispanic workers,any_exp,9578,3074,DML-XGB,-0.1212,0.0074,0.0,-12.1228,-13.5801,-10.6655
+"Publicly insured, older & lower-income",log_total_exp,11176,4672,Raw gap,-0.0564,0.0716,0.4308,-5.4835,-17.8554,8.7517
+"Publicly insured, older & lower-income",log_total_exp,11176,4672,OLS + health,-0.7259,0.0674,0.0,-51.6121,-57.6041,-44.7732
+"Publicly insured, older & lower-income",log_total_exp,11176,4672,DML-LASSO,-0.7476,0.0507,0.0,-52.6501,-57.1298,-47.7023
+"Publicly insured, older & lower-income",log_total_exp,11176,4672,DML-RF,-0.7205,0.0506,0.0,-51.3511,-55.9416,-46.2822
+"Publicly insured, older & lower-income",log_total_exp,11176,4672,DML-XGB,-0.7262,0.0502,0.0,-51.6244,-56.159,-46.6209
+"Publicly insured, older & lower-income",log_oop_exp,11176,4672,Raw gap,-1.4105,0.0775,0.0,-75.5987,-79.0377,-71.5954
+"Publicly insured, older & lower-income",log_oop_exp,11176,4672,OLS + health,-1.834,0.0682,0.0,-84.0228,-86.0231,-81.7362
+"Publicly insured, older & lower-income",log_oop_exp,11176,4672,DML-LASSO,-1.8593,0.0506,0.0,-84.4213,-85.8931,-82.796
+"Publicly insured, older & lower-income",log_oop_exp,11176,4672,DML-RF,-1.8367,0.0505,0.0,-84.0659,-85.5682,-82.4073
+"Publicly insured, older & lower-income",log_oop_exp,11176,4672,DML-XGB,-1.8493,0.0505,0.0,-84.2645,-85.7463,-82.6286
+"Publicly insured, older & lower-income",any_exp,11176,4672,Raw gap,-0.0323,0.0066,0.0,-3.2268,-4.519,-1.9345
+"Publicly insured, older & lower-income",any_exp,11176,4672,OLS + health,-0.0661,0.0072,0.0,-6.6083,-8.0253,-5.1914
+"Publicly insured, older & lower-income",any_exp,11176,4672,DML-LASSO,-0.0685,0.0055,0.0,-6.8477,-7.9346,-5.7609
+"Publicly insured, older & lower-income",any_exp,11176,4672,DML-RF,-0.0662,0.0055,0.0,-6.6219,-7.7036,-5.5402
+"Publicly insured, older & lower-income",any_exp,11176,4672,DML-XGB,-0.067,0.0055,0.0,-6.6978,-7.7723,-5.6233
+Near-poor adults,log_total_exp,7261,757,Raw gap,-0.8371,0.1716,0.0,-56.7045,-69.0716,-39.3923
+Near-poor adults,log_total_exp,7261,757,OLS + health,-1.3391,0.1478,0.0,-73.7927,-80.3854,-64.9841
+Near-poor adults,log_total_exp,7261,757,DML-LASSO,-1.3197,0.1152,0.0,-73.2774,-78.6804,-66.5051
+Near-poor adults,log_total_exp,7261,757,DML-RF,-1.2978,0.1153,0.0,-72.6866,-78.2101,-65.763
+Near-poor adults,log_total_exp,7261,757,DML-XGB,-1.2728,0.1121,0.0,-71.9951,-77.5193,-65.1134
+Near-poor adults,log_oop_exp,7261,757,Raw gap,-1.7745,0.1363,0.0,-83.0428,-87.0179,-77.8506
+Near-poor adults,log_oop_exp,7261,757,OLS + health,-2.0966,0.1222,0.0,-87.7126,-90.3301,-84.3866
+Near-poor adults,log_oop_exp,7261,757,DML-LASSO,-2.0721,0.1023,0.0,-87.408,-89.6958,-84.6124
+Near-poor adults,log_oop_exp,7261,757,DML-RF,-2.0532,0.1027,0.0,-87.1673,-89.5072,-84.3055
+Near-poor adults,log_oop_exp,7261,757,DML-XGB,-2.0323,0.1017,0.0,-86.8962,-89.2649,-84.0048
+Near-poor adults,any_exp,7261,757,Raw gap,-0.1055,0.0184,0.0,-10.5533,-14.1619,-6.9446
+Near-poor adults,any_exp,7261,757,OLS + health,-0.126,0.0181,0.0,-12.6006,-16.1404,-9.0608
+Near-poor adults,any_exp,7261,757,DML-LASSO,-0.125,0.0136,0.0,-12.4955,-15.1697,-9.8213
+Near-poor adults,any_exp,7261,757,DML-RF,-0.1237,0.0136,0.0,-12.3687,-15.0302,-9.7073
+Near-poor adults,any_exp,7261,757,DML-XGB,-0.1211,0.0132,0.0,-12.1067,-14.6881,-9.5253
+Uninsured adults,log_total_exp,7714,1210,Raw gap,-4.6141,0.1424,0.0,-99.0089,-99.2503,-98.6899
+Uninsured adults,log_total_exp,7714,1210,OLS + health,-4.1206,0.1314,0.0,-98.3765,-98.7451,-97.8995
+Uninsured adults,log_total_exp,7714,1210,DML-LASSO,-4.0903,0.1019,0.0,-98.3265,-98.6295,-97.9566
+Uninsured adults,log_total_exp,7714,1210,DML-RF,-4.0365,0.1034,0.0,-98.2341,-98.5582,-97.8372
+Uninsured adults,log_total_exp,7714,1210,DML-XGB,-3.9867,0.103,0.0,-98.1439,-98.483,-97.7289
+Uninsured adults,log_oop_exp,7714,1210,Raw gap,-3.3162,0.1213,0.0,-96.3708,-97.1387,-95.3969
+Uninsured adults,log_oop_exp,7714,1210,OLS + health,-2.8845,0.114,0.0,-94.4119,-95.5305,-93.0134
+Uninsured adults,log_oop_exp,7714,1210,DML-LASSO,-2.8577,0.0919,0.0,-94.2599,-95.2056,-93.1276
+Uninsured adults,log_oop_exp,7714,1210,DML-RF,-2.8095,0.0933,0.0,-93.9766,-94.9832,-92.7681
+Uninsured adults,log_oop_exp,7714,1210,DML-XGB,-2.7796,0.0928,0.0,-93.7935,-94.8253,-92.556
+Uninsured adults,any_exp,7714,1210,Raw gap,-0.4797,0.0198,0.0,-47.9745,-51.8637,-44.0852
+Uninsured adults,any_exp,7714,1210,OLS + health,-0.45,0.0187,0.0,-44.9973,-48.6644,-41.3303
+Uninsured adults,any_exp,7714,1210,DML-LASSO,-0.4464,0.0145,0.0,-44.6446,-47.4957,-41.7934
+Uninsured adults,any_exp,7714,1210,DML-RF,-0.4392,0.0147,0.0,-43.9187,-46.794,-41.0434
+Uninsured adults,any_exp,7714,1210,DML-XGB,-0.434,0.0145,0.0,-43.4045,-46.2465,-40.5625

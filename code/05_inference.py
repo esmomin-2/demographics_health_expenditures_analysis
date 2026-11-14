@@ -42,7 +42,7 @@ df = pd.read_csv(os.path.join(ROOT, "data/meps2022_adults.csv"))
 health = ["health_poor", "mental_poor", "diabetes", "hypertension", "heart_disease",
           "asthma", "arthritis", "cancer"]
 need = ["age", "female", "race", "educ_yrs", "pov_cat", "fam_size", "married", "region",
-        "insurance"] + health
+        "insurance", "has_usual_source", "employed"] + health
 df = df.dropna(subset=need).reset_index(drop=True)
 df["age2"] = df["age"] ** 2 / 100
 df["cluster"] = df["strata"] * 100 + df["psu"]
@@ -62,7 +62,7 @@ print(f"Analysis sample: {len(df):,} adults (complete cases)")
 DEMO = ["age", "age2", "female", "black", "hispanic", "asian", "other_race", "educ_yrs",
         "poor_nearpoor", "pov_low", "pov_mid", "fam_size", "married",
         "reg_Northeast", "reg_Midwest", "reg_West"]          # ref: NH White, high income, South
-INS = ["uninsured", "public_only"]                          # ref: any private
+INS = ["uninsured", "public_only", "has_usual_source", "employed"]  # SES incl. access to care; ref: any private
 HLTH = health
 OUTS = ["log_total_exp", "log_oop_exp", "any_exp"]
 
@@ -127,7 +127,7 @@ fig.tight_layout(); style.save(fig, "i_ols_coefplot", source="Source: MEPS 2022 
 def learner(name, binary_target=False):
     # Regressors for both h and d (d0 = E[D|X] = P(D=1|X) for binary D -> regression on 0/1 is valid)
     if name == "LASSO":
-        return make_pipeline(StandardScaler(), LassoCV(cv=3, n_alphas=15, random_state=SEED, max_iter=2000, tol=1e-3, n_jobs=-1))
+        return make_pipeline(StandardScaler(), LassoCV(cv=3, alphas=15, random_state=SEED, max_iter=2000, tol=1e-3, n_jobs=-1))
     if name == "RF":
         return RandomForestRegressor(n_estimators=100, max_depth=8, min_samples_leaf=20,
                                      max_features=0.5, n_jobs=-1, random_state=SEED)
@@ -231,7 +231,7 @@ def aipw(data, y, d, X, seed=SEED, trim=(0.01, 0.99)):
     thetas, ses = np.array(thetas), np.array(ses); tm = np.median(thetas)
     return tm, np.sqrt(np.median(ses ** 2 + (thetas - tm) ** 2))
 
-Xu = [v for v in XALL if v not in INS]   # compare uninsured vs insured (any coverage)
+Xu = [v for v in XALL if v not in ["uninsured", "public_only"]]   # compare uninsured vs insured (any coverage)
 aipw_rows = []
 for lab, sub in [("All adults", df), ("Age 18-64", df[df.age < 65])]:
     th, se = aipw(sub.reset_index(drop=True), "total_exp", "uninsured", Xu)
